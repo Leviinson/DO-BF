@@ -1,0 +1,64 @@
+<div 
+  class="modal fade userLocationModal" 
+  id="userLocationModal" 
+  tabindex="-1" 
+  aria-labelledby="userLocationModal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button 
+          type="button" 
+          class="btn-close icon" 
+          data-bs-dismiss="modal" 
+          ria-label="Close"
+        >
+          
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class="h2-24-auto-bold" id="userLocationModalLabel">
+          Місце розташування
+        </h5>
+        <div class="input-tell-container">
+          <form method="get" action="{% url 'location:location-view' %}" class="location-form">
+            <div class="content">
+              <input
+                type="text"
+                class="p-16-auto-regular darck-gray input-text location-city"
+                name="city"
+                placeholder="Місто"
+                id="autocompleteCityLocation"
+                required
+              />
+              <input
+                type="text"
+                class="p-16-auto-regular darck-gray input-text location-region"
+                name="region"
+                placeholder="Штат/Регіон"
+                id="autocompleteRegionLocation"
+                required
+              />
+              <input
+                type="text"
+                class="p-16-auto-regular darck-gray input-text location-country"
+                name="country"
+                placeholder="Країна"
+                id="autocompleteCountryLocation"
+                required
+              />
+            </div>
+            <button
+              class="button-main-text p-16-auto-bold location-button disabled-button"
+              type="submit"
+              value="Отправить"
+            >
+              Відправити
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

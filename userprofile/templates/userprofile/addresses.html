@@ -1,0 +1,29 @@
+{% extends 'mainpage/base.html' %}
+{% load static %}
+{% block content %}
+
+    <h3>Customer addresses</h3>
+    {% for address in addresses %}
+        <div>
+            <h5>Address Name: {{ address.Name }}</h5>
+            <div>id: {{ address.id }}</div>
+            <div>country: {{ address.country }}</div>
+            <div>city: {{ address.city }}</div>
+            <div>street: {{ address.street }}</div>
+            <div>building: {{ address.building }}</div>
+            <div>apartment: {{ address.appartment }}</div>
+            <div>is_default: {{ address.is_default }}</div>
+        </div>
+        <a href="{% url 'userprofile:update_address' user.zoho_id address.id %}">
+            Change {{ address.Name }} address
+        </a>
+        <form method="post" action="{% url 'userprofile:delete_address' user.zoho_id %}">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ address.id }}"/>
+            <input type="submit" value="Delete address"/>
+        </form>
+    {% endfor %}
+    <div>
+        <a href="{% url 'userprofile:create_address' user.zoho_id %}">Add address</a>
+    </div>
+{% endblock content %}

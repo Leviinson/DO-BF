@@ -1,0 +1,617 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bonny Flowers - {{ region.country_name }}</title>
+
+  <!-- FAVICON -->
+
+  <link rel="shortcut icon" href="{% static 'mainpage/favicon.svg' %}" type="image/x-icon" />
+
+  <!-- FOR-PHONE-INPUT -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <!-- BOOTSTRAP -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+  <!-- SITE-STYLE -->
+  <link rel="stylesheet" href="{% static 'styles/swiper832.min.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/common.css' %}">
+  <link rel="stylesheet" href="{% static 'mainpage/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/sideButtons.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/quickOrderModal.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/callBackModal.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/cardXlForSlider.css' %}">
+  
+</head>
+
+<body>
+  <!-- HEADER -->
+  {% include 'core_components/header.html' %}
+
+  <main>
+    <!-- SLIDER header -->
+    <div class="slider-container-header m-b-60">
+      <div class="slide_viewer">
+        <!-- SLIDE-GROUP -->
+
+        <div class="slide_group">
+          <!-- SLIDE-header -->
+          {% if main_slider %}
+            {% for slide in main_slider %}
+              <div class="slide-header">
+                <div class="slide-bg" style="background-image: url({{slide.picture.url}});"></div>
+                <div class="slide-info-container">
+                  <div class="slide-info">
+                    <h3 class="h1-42-auto-bold white">{{ slide.description_up }}</h3>
+                    <p class="p-16-auto-regular white">{{ slide.description_down }}</p>
+                    {% if slide.ordinal_number == 1 %}
+                    <a
+                      class="button-main-text p-16-auto-bold"
+                      data-bs-toggle="modal"
+                      data-bs-target="#individualOrderModal"
+                      href=""
+                    >
+                      {{ slide.button }}
+                    </a>
+                    {% else %}
+                      <a class="button-main-text p-16-auto-bold" href="{{ slide.link }}">Замовити</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+
+            <div class="slide-header">
+              <div class="slide-bg" style="
+                                  background-image: url({% static 'mainpage/img/bg-header-slider-1.jpg' %});
+                              "></div>
+              <div class="slide-info-container">
+                <div class="slide-info">
+                  <h3 class="h1-42-auto-bold white">
+                    Індивідуальне замовлення прямо зараз!
+                  </h3>
+                  <p class="p-16-auto-regular white">
+                    Зробіть свій день яскравішим з квітами від
+                    Bunny Flowers
+                  </p>
+                  <a 
+                    class="button-main-text p-16-auto-bold" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#individualOrderModal"
+                    href=""
+                  >
+                    Замовити
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="slide-header">
+              <div class="slide-bg" style="
+                                  background-image: url({% static 'mainpage/img/bg-header-slider-2.jpg' %});
+                              "></div>
+              <div class="slide-info-container">
+                <div class="slide-info">
+                  <h3 class="h1-42-auto-bold white">
+                    Індивідуальне замовлення прямо зараз!
+                  </h3>
+                  <p class="p-16-auto-regular white">
+                    Зробіть свій день яскравішим з квітами від
+                    Bunny Flowers
+                  </p>
+                  <a 
+                    class="button-main-text p-16-auto-bold" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#individualOrderModal"
+                    href=""
+                  >
+                    Замовити
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="slide-header">
+              <div class="slide-bg" style="
+                                  background-image: url({% static 'mainpage/img/bg-header-slider-3.jpg' %});
+                              "></div>
+              <div class="slide-info-container">
+                <div class="slide-info">
+                  <h3 class="h1-42-auto-bold white">
+                    Індивідуальне замовлення прямо зараз!
+                  </h3>
+                  <p class="p-16-auto-regular white">
+                    Зробіть свій день яскравішим з квітами від
+                    Bunny Flowers
+                  </p>
+                  <a
+                    class="button-main-text p-16-auto-bold"
+                    data-bs-toggle="modal"
+                    data-bs-target="#individualOrderModal"
+                    href=""
+                  >
+                    Замовити
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="slide-header">
+              <div class="slide-bg" style="background-image: url({% static 'mainpage/img/bg-header-slider-4.jpg' %})">
+              </div>
+              <div class="slide-info-container">
+                <div class="slide-info">
+                  <h3 class="h1-42-auto-bold white">
+                    Індивідуальне замовлення прямо зараз!
+                  </h3>
+                  <p class="p-16-auto-regular white">
+                    Зробіть свій день яскравішим з квітами від
+                    Bunny Flowers
+                  </p>
+                  <a
+                    class="button-main-text p-16-auto-bold"
+                    data-bs-toggle="modal"
+                    data-bs-target="#individualOrderModal"
+                    href="#"
+                  >
+                    Замовити
+                  </a>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="slide_buttons"></div>
+
+      <!-- BTN-FOR-NAV-SLIDER -->
+
+      <div class="directional_nav">
+        <div class="previous_btn" title="Previous"></div>
+        <div class="next_btn" title="Next"></div>
+      </div>
+    </div>
+    <!-- End // .slider-container -->
+
+    <!-- QUICK-SELECTION-MENU -->
+    <section class="quick-selection-menu">
+      <div class="quick-selection-menu-container">
+        <h4 class="h1-42-auto-bold m-b-70">
+          Швидкий підбір 333111
+        </h4>
+
+        <form class="quick-selection-menu-form">
+          <div class="quick-selection-menu-select-group">
+
+            <!-- QUICK-SELECTION-MENU CATEGORIES-->
+            <div class="accordion-category" id="accordionCategory">
+              <div class="accordion-item quick-selection-menu-accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button
+                    type="button"
+                    class="accordion-button collapsed p-16-auto-regular"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseCategory"
+                    aria-expanded="false"
+                    aria-controls="collapseCategory"
+                  >
+                    Підкатегорія
+                    <span class="accordion-button-arrow"></span>
+                  </button>
+                </h2>
+                <div 
+                  class="accordion-collapse collapse"
+                  id="collapseCategory"
+                  aria-labelledby="headingCategory"
+                  data-bs-parent="#accordionCategory"
+                >
+                  <div class="accordion-body category-list">
+
+                    <ul class="accordion-list-group">
+                      {% for subcategory in quick_selection_subcategories %}
+                        <li class="radio-input-group">
+                          <input
+                            class="form-check-input quick-selection-menu-category"
+                            type="radio"
+                            name="subcategoryName"
+                            id="{{ subcategory.id }}"
+                            data-slug="{{ subcategory.slug }}"
+                          />
+                          <label
+                            class="quick-selection-menu-label"
+                            for="{{ subcategory.id }}"
+                          >
+                            {{ subcategory.Name }}
+                          </label>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- QUICK-SELECTION-MENU BUDGET-->
+            <div class="accordion-category" id="accordionBudget">
+              <div class="accordion-item quick-selection-menu-accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button collapsed p-16-auto-regular" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#collapseBudget" aria-expanded="false"
+                    aria-controls="collapseBudget">
+                    Бюджет
+                    <span class="accordion-button-arrow"></span>
+                  </button>
+                </h2>
+                <div id="collapseBudget" class="accordion-collapse collapse" aria-labelledby="headingBudget"
+                  data-bs-parent="#accordionBudget">
+                  <div class="accordion-body budget-list">
+                    <div class="from-to-input-container">
+                      <div id="rangeSlider" class="range-slider">
+                        <div class="number-group">
+                          <input
+                            class="number-input p-16-auto-medium quick-selection-menu-min-budget"
+                            type="number"
+                            name="minBudget"
+                            value="0"
+                            min="0"
+                            placeholder="Від..."
+                          />
+                          <span class="quick-selection-menu-currency-symbol">
+                            {{ selected_currency.symbol }}
+                          </span>
+
+                          <input 
+                            class="number-input p-16-auto-medium quick-selection-menu-product-max-budget"
+                            type="number"
+                            name="maxBudget"
+                            value="60000"
+                            min="0"
+                            placeholder="До..."
+                          />
+                          <span class="quick-selection-menu-currency-symbol">
+                            {{ selected_currency.symbol }}
+                          </span>
+                        </div>
+                        <div class="range-group">
+                          <input
+                            class="range-input quick-selection-menu-product-min-range" 
+                            value="0"
+                            min="0"
+                            max="60000"
+                            step="1"
+                            type="range"
+                          />
+                          <input 
+                            class="range-input quick-selection-menu-product-max-range" 
+                            value="60000"
+                            min="0"
+                            max="60000"
+                            step="1"
+                            type="range"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- QUICK-SELECTION-MENU BUTTON-->
+          <button 
+            type="submit"
+            class="button-main-text p-16-auto-bold quick-selection-menu-btn disabled-button"
+            id="visibleQuickSelectionMenu"
+            disabled
+          >
+            Підібрати
+          </button>
+        </form>
+      </div>
+
+      <!-- QUICK-SELECTION-MENU RESULT-->
+      <div class="quick-selection-menu-results" hidden>
+        <div class="slider-for-cards m-b-60">
+          <div class="slider-for-cards-container">
+            <div class="title-box m-b-70">
+              <h4 class="h1-42-auto-bold">Результати</h4>
+              <div class="fast-search-results-info">
+                <p class="p-16-auto-medium">Знайдено</p>
+                <p class="p-16-auto-medium red">
+                  <span class="quick-selection-menu-count"></span>
+                  товарів
+                </p>
+              </div>
+            </div>
+            <div class="slider-product-container">
+              <div class="slide_viewer">
+                <div class="slide_group quick-selection-menu-slider"></div>
+              </div>
+              <a href="#visibleQuickSelectionMenu" class="slide_buttons"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEO-block SECTION -->
+    <div class="seo-block m-b-60">
+      <div class="seo-bg" style="background-image: url({{ first_seo_block.picture.url }})"></div>
+      <a href="{{ first_seo_block.link }}" class="seo-info-conatiner">
+        <div class="seo-info">
+          <h3 class="h1-42-auto-bold white">
+            {{ first_seo_block.description }}
+          </h3>
+          <h4 class="h2-24-auto-medium white" id="visibleOurBestsellers">
+            {{ first_seo_block.button }}
+          </h4>
+        </div>
+      </a>
+    </div>
+
+    <!-- OUR BESTSELLERS SECTION -->
+
+    
+
+    <section class="slider-for-cards m-b-60">
+      <div class="slider-for-cards-container">
+        <div class="title-box m-b-70">
+          <h4 class="h1-42-auto-bold">Наші бестселери</h4>
+        </div>
+        <div class="swiper">
+          <div class="swiper__inner">
+            <div class="swiper-container swiper2">
+              <div class="slider2 swiper-wrapper">
+                <div class="slide2 swiper-slide">
+                  {% for product in region_bestsellers %}
+    
+                      {% include 'core_components/cardXlForSlider.html' %}
+    
+                      {% if forloop.counter|divisibleby:6 %}
+                        </div>
+                        <div class="slide2 swiper-slide">
+                      {% endif %}
+                    {% endfor %}
+                </div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK-ORDER-STATIC SECTION -->
+    <div class="slider-container-header m-b-60">
+      <div class="slide_viewer">
+        <div class="slide_group">
+          <div class="slide-header">
+            <div 
+              class="slide-bg quick-order-static-image" 
+              style="background-image: url({{ second_seo_block.picture.url }})"
+            >
+            </div>
+            <div class="slide-info-container">
+              <div class="slide-info">
+                <h3 class="h1-42-auto-bold white">
+                  {{ second_seo_block.description }}
+                </h3>
+                <a 
+                  class="button-main-text p-16-auto-bold" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#individualOrderModal"
+                  href="{{ second_seo_block.link }}"
+                >
+                  {{ second_seo_block.button }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADDITIONAL PRODUCTS SECTION -->
+    <section class="slider-for-cards m-b-100">
+      <div class="slider-for-cards-container">
+        <div class="title-box m-b-70">
+          <h4 class="h1-42-auto-bold">Додаткові товари</h4>
+        </div>
+        <div class="additional-products-container m-b-70">
+          <div class="additional-products">
+            {% for product in additional_products %}
+              {% include 'core_components/cardXlForSlider.html' %}
+            {% endfor %}
+          </div>
+        </div>
+        <a class="button-main-text p-16-auto-bold" href="{% url 'catalogue:category_view' region_slug=region.slug category_slug='presents' %}?currency={{ selected_currency.Name }}">
+          Більше товарів
+        </a>
+      </div>
+    </section>
+
+    <!-- MODALS -->
+
+    <!-- MODAL-CALL-BACK -->
+    {% include 'core_components/callBackModal.html' %}
+    
+    <!-- MODAL-USER-LOCATION -->
+    {% include 'core_components/locationModal.html' %}
+
+    <!-- MODAL-INDIVIDUAL-ORDER -->
+    <div class="modal fade individualOrderModal" id="individualOrderModal" tabindex="-1"
+      aria-labelledby="individualOrderModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close icon" data-bs-dismiss="modal" aria-label="Close">
+              
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5 class="h2-24-auto-bold" id="individualOrderModalLabel">
+              Індивідуальне замовлення
+            </h5>
+            <div class="input-tell-container">
+              <form method="post" class="individual-order-modal-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="content">
+                  <!-- MODAL-INDIVIDUAL-ORDER name input -->
+                  <input
+                    type="text"
+                    class="p-16-auto-regular darck-gray input-text individual-order-modal-name"
+                    name="name"
+                    placeholder="Ваше ім’я"
+                    required 
+                  />
+                  <!-- MODAL-INDIVIDUAL-ORDER tel input -->
+                  <div class="form-group">
+                    <input 
+                      type="tel" 
+                      class="form-control tel individual-order-modal-tel" 
+                      name="leyka_donor_phone"
+                      inputmode="tel" 
+                      value="" 
+                      required 
+                    />
+                  </div>
+                  <!-- MODAL-INDIVIDUAL-ORDER budget input -->
+                  <div class="accordion-category input-text individual-order-modal-price" id="accordionBudget">
+                    <div class="accordion-item individual-order-modal-accordion-item">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed p-16-auto-regular disabled-text" type="button"
+                          data-bs-toggle="collapse" data-bs-target="#collapseBudget" aria-expanded="false"
+                          aria-controls="collapseBudget" aria-required="true">
+                          Бюджет
+                          <span class="accordion-button-arrow"></span>
+                        </button>
+                      </h2>
+                      <div id="collapseBudget" class="accordion-collapse collapse" aria-labelledby="headingBudget"
+                        data-bs-parent="#accordionBudget">
+                        <div class="accordion-body budget-list">
+                          <div id="rangeBudgetList" class="range-slider">
+                            <div class="number-group">
+                              <input 
+                                type="number" 
+                                class="number-input p-16-auto-medium individual-order-modal-min-budget"
+                                name="minBudget" 
+                                min="0" 
+                                placeholder="Від..." 
+                              />
+                              <span class="quick-selection-menu-currency-symbol">
+                                {{ selected_currency.symbol }}
+                              </span>
+
+                              <input 
+                                type="number" 
+                                class="number-input p-16-auto-medium individual-order-modal-max-budget"
+                                name="maxBudget" 
+                                min="0" 
+                                placeholder="До..." 
+                              />
+                              <span class="quick-selection-menu-currency-symbol">
+                                {{ selected_currency.symbol }}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- MODAL-INDIVIDUAL-ORDER file input -->
+                  <div class="individual-order-modal-file-container">
+                    <input 
+                      type="file" 
+                      class="individual-order-modal-file-input" 
+                      name="file" 
+                      accept=".png, .jpeg, .jpg, .gif, .bmp"
+                      placeholder="Фото прикладу" 
+                      id="individualOrderModalFileInput" 
+                      hidden 
+                    />
+                    <label for="individualOrderModalFileInput" type="button"
+                      class="search-input individual-order-modal-label">
+                      <div class="individual-order-modal-file">
+                        <span class="p-16-auto-regular individual-order-modal-placeholder">Фото прикладу</span>
+                        <span class="icon individual-order-modal-icon-load"></span>
+                        <button type="button" class="btn-close icon individual-order-modal-icon-close"
+                          aria-label="Close">
+                          
+                        </button>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <!-- MODAL-INDIVIDUAL-ORDER button -->
+                <button 
+                  type="submit" 
+                  class="button-main-text p-16-auto-bold disabled-button individual-order-modal-button"
+                  
+                  disabled
+                >
+                  Залишити заявку
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- MODAL-QUICK-ORDER -->
+    {% include 'core_components/quickOrderModal.html' %}
+
+    <!-- SOCIALS BUTTONS -->
+    {% include 'core_components/buttons.html' %}
+  </main>
+  
+  <!-- FOOTER -->
+  {% include 'core_components/footer.html' %}
+
+  <!-- SCRIPT`S -->
+
+  <!-- BOOTSTRAP-BUNDLE-MIN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <!-- AXIOS -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <!-- TEL FLAGS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet" />
+
+  <!-- Places в Maps JavaScript API -->
+  <script src="{% static 'scripts/locationModal.js' %}"></script>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5i5JJfxtMemi02YamAeiMa1FqYbOqCQA&libraries=places&language=en&callback=initAutocomplete" async defer>
+  </script>
+
+  <!-- OWN JS CODE -->
+  <script src="{% static 'scripts/swiper832.js' %}"></script>
+  <script src="{% static 'scripts/header.js' %}"></script>
+  <script src="{% static 'scripts/common.js' %}"></script>
+  <script src="{% static 'mainpage/index.js' %}"></script>
+  <script src="{% static 'scripts/sliderForCards.js' %}"></script>
+  <script src="{% static 'scripts/sideButtons.js' %}"></script>
+  <script src="{% static 'scripts/quickOrderModal.js' %}"></script>
+  <script src="{% static 'scripts/callBackModal.js' %}"></script>
+  <script src="{% static 'scripts/rangeNumbersSlider.js' %}"></script>
+  <script src="{% static 'scripts/addToCart.js' %}"></script>
+</body>
+
+</html>

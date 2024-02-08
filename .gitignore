@@ -1,0 +1,6 @@
+poetry.lock
+**/__pycache__/
+**/migrations/
+static/
+api_cache/
+zoho_token/logger/

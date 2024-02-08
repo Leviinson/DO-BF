@@ -1,0 +1,251 @@
+/* CONTAINER */
+
+@media screen and (max-width: 700px) {
+  .catalogue-container {
+    padding: 0 15px;
+    margin-bottom: 15px;
+  }
+}
+
+/* <!-- BREADCRUMBS --> */
+.catalogue-breadcrumbs-container {
+  align-self: start;
+}
+
+@media screen and (max-width: 700px) {
+  .catalogue-breadcrumbs-container {
+    padding-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .catalogue-breadcrumbs {
+    padding: 0;
+  }
+}
+
+/* <!-- CATALOGUE TOP CONTROLS --> */
+.catalogue-filter-section {
+  width: 100%;
+}
+
+.catalogue-controls-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.catalogue-controls-container .accordion-category {
+  min-width: 200px;
+}
+
+.catalogue-sort-container {
+  padding: 15px;
+}
+
+.radio-input-group a:hover {
+  color:var(--red, #8e1533);
+}
+
+@media screen and (max-width: 700px) {
+  .catalogue-controls-container {
+    flex-direction: column;
+    gap: 13px;
+    margin-bottom: 20px;
+  }
+  
+  .catalogue-sort-title {
+    height: 35px;
+    padding: 5px 10px;
+  }
+
+  .catalogue-sort-container {
+    padding: 5px 10px;
+  }
+
+  .catalogue-filter-title {
+    margin-bottom: 20px;
+    align-self: start;
+  }
+}
+
+/* <!-- CATALOGUE FILTERED CARDS --> */
+.catalogue-filtered-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  /* grid-template-columns: repeat(4, 1fr); */
+  gap: 60px 50px;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+/* @media screen and (max-width: 1000px) {
+  .catalogue-filtered-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+} */
+
+@media screen and (max-width: 700px) {
+  .catalogue-filtered-cards {
+    /* grid-template-columns: repeat(2, 1fr); */
+    grid-template-columns: repeat(auto-fill, 125px);
+    gap: 25px 20px;
+    margin-bottom: 15px;
+  }
+}
+
+/* PAGINATION */
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-radius: 5px;
+  background-color: var(--white);
+}
+
+.pagination ul {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.pagination ul .selected-page {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--dark-grey) !important;
+}
+
+@media screen and (max-width: 700px) {
+  .pagination {
+    gap: 10px;
+    border-radius: 5px;
+    background-color: var(--white);
+  }
+
+  .pagination ul {
+    gap: 10px;
+  }
+
+  .pagination ul .selected-page {
+    font-size: 14px;
+  }
+}
+
+/* CATALOG-SEPARATOR LINE */
+.catalog-separator {
+  width: 20px;
+  height: 1px;
+  margin: 0 auto 60px;
+  background-color: #D9D9D9;
+}
+
+@media screen and (max-width: 700px) {
+  .catalog-separator {
+    display: none;
+  }
+}
+
+/* <!-- CATALOGUE VIEWED SECTION --> */
+.catalogue-viewed-title {
+  align-self: center;
+}
+
+.catalogue-slider-container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.catalogue-slider {
+  padding: 5px;
+  max-width: 100%;
+  overflow: hidden;
+  padding-bottom: 0;
+}
+
+.catalogue-slider-line {
+  width: 100%;
+  display: flex;
+  gap: 50px;
+  position: relative;
+  left: 0;
+  transition: all ease 1s;
+}
+
+.catalogue-slider-line .catalogue-card:nth-child(n+5) {
+  display: none;
+}
+
+.catalogue-card {
+  flex-shrink: 1;
+  position: relative;
+}
+
+.catalogue-button {
+  background: none;
+  border: 1px solid black;
+  padding: 10px 20px;
+}
+
+.inactive-card {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 1420px) {
+  .catalogue-slider-line .catalogue-card:nth-child(n+4) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  .catalogue-slider-line .catalogue-card:nth-child(n+3) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .catalogue-slider-container {
+    padding: 0;
+    margin-bottom: 25px;
+  }
+
+  .catalogue-slider {
+    padding: 15px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    padding-bottom: 0;
+  }
+
+  .catalogue-slider-line {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    position: relative;
+    left: 0;
+    transition: all ease 1s;
+  }
+
+  .catalogue-slider-line .catalogue-card:nth-child(n+3) {
+    display: block;
+  }
+
+  .catalogue-slider-line .catalogue-card:nth-child(n+5) {
+    display: none;
+  }
+
+  .catalogue-card {
+    flex-shrink: 0;
+    position: static;
+  }
+}

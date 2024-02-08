@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Оформление заказа</title>
+
+    <!-- FAVICON -->
+
+    <link rel="shortcut icon" href="{% static 'mainpage/favicon.svg' %}" type="image/x-icon" />
+
+    <!-- FOR-PHONE-INPUT -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- BOOTSTRAP -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+    <!-- SITE-STYLE -->
+
+    <link rel="stylesheet" href="{% static 'styles/common.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/footer.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/sideButtons.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/callBackModal.css' %}" />
+    <link rel="stylesheet" href="{% static 'orders/orderedPage.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/cartOrdersSwitch.css' %}">
+</head>
+
+<body>
+    <!-- HEADER -->
+    {% include 'core_components/header.html' %}
+
+    <main>
+        <div class="container">
+            {% include 'core_components/cartOrdersSwitch.html' %}
+
+            <div class="ordered-container">
+                {% for order in orders %}
+                    <div class="ordered-order">
+                        <div class="ordered-property-number-mobile">
+                            <p class="p-16-auto-regular">Номер замовлення</p>
+                            <p class="h2-24-auto-medium black">{{ order.number }}</p>
+                        </div>
+                        <div class="ordered-props">
+                            <div class="ordered-property ordered-property-number">
+                                <p class="p-16-auto-regular">Номер замовлення</p>
+                                <p class="h2-24-auto-medium black">{{ order.number }}</p>
+                            </div>
+                            <div class="ordered-property">
+                                <p class="p-16-auto-regular">Дата</p>
+                                <p class="h2-24-auto-medium black">{{ order.target_delivery_date }}</p>
+                            </div>
+                            <div class="ordered-property">
+                                <p class="p-16-auto-regular">Сума</p>
+                                <p class="h2-24-auto-medium red">{{ order.grand_total }}{{ order.selected_currency.symbol }} </p>
+                            </div>
+                            <div class="ordered-property">
+                                <p class="p-16-auto-regular">Статус</p>
+                                {% if order.status.value == orders_statutes.pending %}
+                                    <p class="h2-24-auto-medium dark-orange">{{ order.status.value }}</p>
+                                {% elif order.status.value == orders_statutes.return %}
+                                    <p class="h2-24-auto-medium medium-red">{{ order.status.value }}</p>
+                                {% elif order.status.value == orders_statutes.in_progress %}
+                                    <p class="h2-24-auto-medium medium-blue">{{ order.status.value }}</p>
+                                {% elif order.status.value == orders_statutes.delivered %}
+                                    <p class="h2-24-auto-medium light-green">{{ order.status.value }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="ordered-products">
+                            {% for product in order.products %}
+                                <div class="ordered-product">
+                                    <div class="ordered-product-name">
+                                        <p class="h2-24-auto-medium">{{ product.name }}</p>
+                                        <p class="p-16-auto-regular">Артикул {{ product.sku }}</p>
+                                    </div>
+                                    <div class="ordered-product-quantity">
+                                        <p class="p-16-auto-regular">Кількість</p>
+                                        <p class="h2-24-auto-medium black">{{ product.amount }}</p>
+                                    </div>
+                                    <div class="ordered-product-sum">
+                                        <p class="p-16-auto-regular">Сума</p>
+                                        <p class="h2-24-auto-medium red">{{ product.price }}{{ order.selected_currency.symbol }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <!-- MODALS -->
+        <!-- MODAL-CALL-BACK -->
+        {% include 'core_components/callBackModal.html' %}
+        <!-- MODAL-USER-LOCATION -->
+        {% include 'core_components/locationModal.html' %}
+
+        <!-- MODAL-QUICK-ORDER -->
+        {% include 'core_components/quickOrderModal.html' %}
+
+        <!-- SOCIALS BUTTONS -->
+        {% include 'core_components/buttons.html' %}
+    </main>
+
+    <!-- FOOTER -->
+    {% include 'core_components/footer.html' %}
+
+    <!-- SCRIPT`S -->
+
+    <!-- BOOTSTRAP-BUNDLE-MIN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- TEL FLAGS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet" />
+
+    <!-- Places в Maps JavaScript API -->
+    <script src="{% static 'scripts/locationModal.js' %}"></script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5i5JJfxtMemi02YamAeiMa1FqYbOqCQA&libraries=places&language=en&callback=initAutocomplete"
+        async defer>
+        </script>
+
+    <!-- OWN JS CODE -->
+    <script src="{% static 'scripts/header.js' %}"></script>
+    <script src="{% static 'scripts/common.js' %}"></script>
+    <script src="{% static 'scripts/sideButtons.js' %}"></script>
+    <script src="{% static 'scripts/callBackModal.js' %}"></script>
+    <script src="{% static 'scripts/counter.js' %}"></script>
+</body>
+
+</html>

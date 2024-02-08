@@ -1,0 +1,9 @@
+<div class="ordered-top-controls m-b-60">
+    {% if is_cart %}
+        <a class="h2-24-auto-medium link-button active-button" aria-disabled="true">Кошик</h2>
+        <a href="{% url 'orders:orders-list' region.slug %}?currency={{ selected_currency.Name }}" class="h2-24-auto-medium link-button">Замовлення</a>
+    {% else %}
+        <a href="{% url 'cart:cart' region.slug %}?currency={{ selected_currency.Name }}" class="h2-24-auto-medium link-button">Кошик</a>
+        <a class="h2-24-auto-medium link-button active-button" aria-disabled="true">Замовлення</a>
+    {% endif %}
+</div>

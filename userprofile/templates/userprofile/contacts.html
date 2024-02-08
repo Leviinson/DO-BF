@@ -1,0 +1,25 @@
+{% extends 'mainpage/base.html' %}
+{% load static %}
+{% block content %}
+
+    <h3>Customer contacts</h3>
+    <div>
+        {% for contact in contacts %}
+            <h5>Name: {{ contact.Name }}</h5>
+            <div>id: {{ contact.id }}</div>
+            <div>phone number: {{ contact.phone_number }}</div>
+            <a href="{% url 'userprofile:update_contact' user.zoho_id contact.id %}">
+                Change {{ contact.Name }} contact
+            </a>
+            <form method="post" action="{% url 'userprofile:delete_contact' user.zoho_id %}">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ contact.id }}"/>
+                <input type="submit" value="Delete contact"/>
+            </form>
+
+        {% endfor %}
+    </div>
+    <div>
+        <a href="{% url 'userprofile:create_contact' user.zoho_id %}">Add contact</a>
+    </div>
+{% endblock content %}

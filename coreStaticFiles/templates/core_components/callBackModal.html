@@ -1,0 +1,50 @@
+<!-- MODAL-CALL-BACK -->
+<div
+  class="modal fade callBackModal" 
+  id="callBackModal"
+  tabindex="-1"
+  aria-labelledby="callBackModalLabel"
+  aria-hidden="true"
+>
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close icon" data-bs-dismiss="modal" aria-label="Close">
+          
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class="h2-24-auto-bold" id="callBackModalLabel">
+          Зворотній дзвінок
+        </h5>
+        <div class="input-tell-container">
+          <form action="#" method="post" class="call-back-modal-form">
+            {% csrf_token %}
+            <div class="content">
+              <input
+                type="text"
+                class="p-16-auto-regular darck-gray input-text call-back-modal-name"
+                name="name"
+                placeholder="Ваше ім’я"
+              />
+              <div class="form-group">
+                <input
+                  type="tel"
+                  class="form-control tel call-back-modal-tel"
+                  name="leyka_donor_phone"
+                  inputmode="tel"
+                  value=""
+                />
+              </div>
+            </div>
+            <button class="button-main-text disabled-button p-16-auto-bold call-back-modal-button" type="submit"
+              value="Отправить" disabled>
+              Відправити
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

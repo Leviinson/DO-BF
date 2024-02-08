@@ -1,0 +1,342 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Оформление заказа</title>
+
+  <!-- FAVICON -->
+
+  <link rel="shortcut icon" href="{% static 'mainpage/favicon.svg' %}" type="image/x-icon" />
+
+  <!-- FOR-PHONE-INPUT -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <!-- BOOTSTRAP -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+  <!-- SITE-STYLE -->
+
+  <link rel="stylesheet" href="{% static 'styles/swiper832.min.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/common.css' %}" />
+  <link rel="stylesheet" href="{% static 'styles/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'styles/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'styles/sideButtons.css' %}" />
+  <link rel="stylesheet" href="{% static 'styles/counter.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/callBackModal.css' %}" />
+  <link rel="stylesheet" href="{% static 'styles/cardXlForSlider.css' %}" />
+  <link rel="stylesheet" href="{% static 'styles/cardLforCart.css' %}" />
+  <link rel="stylesheet" href="{% static 'orders/styles.css' %}" />
+  
+</head>
+
+<body>
+  <!-- HEADER -->
+  {% include 'core_components/header.html' %}
+
+  <main>
+    <form class="container order-container" method="post" action="{% url 'orders:checkout' region.slug %}">
+      {% csrf_token %}
+      <div class="order-top-container">
+        <!-- ORDER SETTING SECTION -->
+        <section class="order-setting-container">
+          <!-- TITLE -->
+          <h2 class="h2-24-auto-medium">Оформлення замовлення</h2>
+          <!-- STEP 1 -->
+          <div>
+            <div class="m-b-40 order-setting-subtitle-container">
+              <span class="order-setting-number">1</span>
+              <span class="h2-24-auto-medium order-setting-subtitle">Ваші дані</span>
+            </div>
+            <div class="order-separator"></div>
+          </div>
+
+          <input type="hidden" name="selected_currency" id="id_selected_currency" value="{{ selected_currency.Name }}">
+          <div class="order-input-group">
+            <div class="content">
+              <div class="form-group">
+                <input type="tel" class="form-control tel order-tel" name="customer_phone_number_mask" inputmode="tel"
+                  value="" required />
+                {{ form.customer_phone_number }}
+              </div>
+              {{ form.customer_name }}
+              {{ form.customer_email }}
+            </div>
+
+            <div class="order-switch-anonim">
+              <div class="toggle-switch">
+                {{ form.is_anonym }}
+                <label for="switchAnonym"></label>
+              </div>
+              <label for="switchAnonym">Відправити замовлення анонімно</label>
+            </div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div>
+            <div class="m-b-25 order-setting-subtitle-container">
+              <span class="order-setting-number">2</span>
+              <span class="h2-24-auto-medium order-setting-subtitle">Доставка</span>
+            </div>
+            <div class="order-separator"></div>
+          </div>
+
+          <div>
+            <div class="content">
+              <input type="checkbox" id="orderByCourier" class="order-by-courier" hidden />
+              <label for="orderByCourier" class="button-main-text p-16-auto-medium m-b-40">
+                Кур’єром
+              </label>
+
+              <div class="m-b-40 order-switch-specify">
+                <div class="toggle-switch">
+                  {{ form.ask_recipient_address }}
+                  <label for="switchAddress"></label>
+                </div>
+                <label for="switchAddress">Уточнити адресу у отримувача</label>
+              </div>
+
+              <div class="order-address-container order-input-group">
+                <input type="text" class="p-16-auto-regular darck-gray input-text order-address-mask"
+                  name="address_mask" id="autocompleteAddress" placeholder="Виберіть адресу" />
+                {{ form.address }}
+                {{ form.flat }}
+                {{ form.city }}
+                {{ form.region }}
+                {{ form.country }}
+                <div class="order-date-input">
+                  {{ form.date }}
+                  <input type="text" class="p-16-auto-regular darck-gray input-text order-date-mask" name="date_mask"
+                    placeholder="Дата" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-recipient-container order-recipient-group">
+            {{ form.recipient_is_customer }}
+            <label for="isRecipientCustomer" class="p-16-auto-medium">Я одержувач</label>
+            {{ form.recipient_is_not_customer }}
+            <label for="isRecipientNotCustomer" class="p-16-auto-medium">У подарунок</label>
+          </div>
+
+          <div class="order-address-container order-input-group order-present">
+            {{ form.recipient_name }}
+            <div class="form-group">
+              <input type="tel" class="form-control tel order-tel order-recipient-phone"
+                name="recipient_phone_number_mask" inputmode="tel" value="" required />
+              {{ form.recipient_phone_number }}
+            </div>
+          </div>
+
+          <div class="order-switch-surprice order-present">
+            <div class="toggle-switch">
+              {{ form.is_surprise }}
+              <label for="switchIsSurprise"></label>
+            </div>
+            <label for="switchIsSurprise">Виконати доставку сюрпризом (без попереднього дзвінка)</label>
+          </div>
+
+          <!-- STEP 3 -->
+          <div>
+            <div class="m-b-25 order-setting-subtitle-container">
+              <span class="order-setting-number">3</span>
+              <span class="h2-24-auto-medium order-setting-subtitle">Листівка</span>
+            </div>
+            <div class="order-separator"></div>
+          </div>
+
+          <div class="order-postcard-container">
+            <p class="p-16-auto-medium">Листівка</p>
+            {{ form.postcard }}
+          </div>
+
+          <!-- STEP 4 -->
+          <div id="orderSlider">
+            <div class="m-b-25 order-setting-subtitle-container">
+              <span class="order-setting-number">4</span>
+              <span class="h2-24-auto-medium order-setting-subtitle">Подарунок</span>
+            </div>
+            <div class="order-separator"></div>
+          </div>
+
+          <!-- SLIDER
+          <div class="slider-for-cards m-b-60">
+            <div class="slider-for-cards-container">
+              <div class="slider-product-container">
+                <div class="slide_viewer">
+                  <div class="slide_group our-bestsellers-slider">
+
+                    <div class="slide-card-container">
+                      {% for product in suggested_products %}
+                        {% include 'core_components/cardXlForSliderWithoutButton.html' %}
+
+                        {% if forloop.counter|divisibleby:2 %}
+                          </div>
+                          <div class="slide-card-container">
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+
+                  </div>
+                </div>
+                <a href="#orderSlider" class="slide_buttons"></a>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="swiper">
+            <div class="swiper__inner">
+              <div class="swiper-container swiper2">
+                <div class="slider2 swiper-wrapper">
+                  <div class="slide2 swiper-slide">
+                    {% for product in suggested_products %}
+                      {% include 'core_components/cardXlForSliderWithoutButton.html' %}
+                      {% if forloop.counter|divisibleby:2 %}
+                        </div>
+                        <div class="slide2 swiper-slide">
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="orderCardsContainer" class="order-cards-container">
+
+          </div>
+
+          <!-- STEP 5 -->
+          <div>
+            <div class="m-b-25 order-setting-subtitle-container">
+              <span class="order-setting-number">5</span>
+              <span class="h2-24-auto-medium order-setting-subtitle">Оплата</span>
+            </div>
+            <div class="order-separator"></div>
+          </div>
+
+          <div class="order-paymentTypes-container">
+            <div>
+              <div class="order-paymentType">
+                <input class="form-check-input" type="radio" name="paymentType" id="paymentType-0" checked />
+                <label for="paymentType-0" class="p-16-auto-regular">Liqpay</label>
+              </div>
+              <label for="paymentType-0" class="order-paymentType-logo">Logo 1</label>
+              <label for="paymentType-0" class="p-14-auto-regular order-paymentType-caption">
+                Після оформлення замовлення ви будете перенаправлені на сторінку оплати
+              </label>
+            </div>
+
+            <div>
+              <div class="order-paymentType">
+                <input class="form-check-input" type="radio" name="paymentType" id="paymentType-1" />
+                <label for="paymentType-1" class="p-16-auto-regular">Portmone</label>
+              </div>
+              <label for="paymentType-1" class="order-paymentType-logo">Logo 2</label>
+              <label for="paymentType-1" class="p-14-auto-regular order-paymentType-caption">
+                Після оформлення замовлення ви будете перенаправлені на сторінку оплати
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <!-- ORDER SELECTED SECTION -->
+        <section class="order-selected">
+          <div class="m-b-40 order-selected-title-container">
+            <h2 class="h2-24-auto-medium">Ваше замовлення</h2>
+            <a href="{% url 'cart:cart' region.slug %}?currency={{ selected_currency.Name }}"
+              class="p-14-auto-regular red">Редагувати</a>
+          </div>
+
+          <div class="m-b-40 order-selected-cards-container">
+            {% for product in cart_products %}
+              {% include 'core_components/cardSforCheckout.html' %}
+            {% endfor %}
+          </div>
+
+          <div class="order-selected-totalprice">
+            <p class="p-16-auto-regular">Разом:</p>
+            <p class="h2-24-auto-medium red">
+              <span id="cartTotalPrice" class="cart-total-price">{{ cart_grand_total_price }}</span>
+              <span>{{ selected_currency.symbol }}</span>
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- BOTTOM SECTION -->
+      <section class="order-bottom-container">
+        <button type="submit" class="button-main-text p-16-auto-bold order-button disabled-button" disabled>
+          Оформити замовлення
+        </button>
+        <div class="order-terms">
+          <input class="form-check-input" type="radio" name="orderTerms" id="orderTerms" />
+          <label for="orderTerms" class="p-16-auto-regular" required>
+            Я Згоден(а) з умовами договору публічної оферти.
+          </label>
+        </div>
+      </section>
+    </form>
+
+    <!-- MODALS -->
+    <!-- MODAL-CALL-BACK -->
+    {% include 'core_components/callBackModal.html' %}
+    <!-- MODAL-USER-LOCATION -->
+    {% include 'core_components/locationModal.html' %}
+
+    <!-- MODAL-QUICK-ORDER -->
+    {% include 'core_components/quickOrderModal.html' %}
+
+    <!-- SOCIALS BUTTONS -->
+    {% include 'core_components/buttons.html' %}
+  </main>
+
+  <!-- FOOTER -->
+  {% include 'core_components/footer.html' %}
+
+  <!-- SCRIPT`S -->
+
+  <!-- BOOTSTRAP-BUNDLE-MIN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <!-- AXIOS -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <!-- TEL FLAGS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet" />
+
+  <!-- Places в Maps JavaScript API -->
+  <script src="{% static 'scripts/locationModal.js' %}"></script>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5i5JJfxtMemi02YamAeiMa1FqYbOqCQA&libraries=places&language=en&callback=initAutocomplete"
+    async defer>
+    </script>
+
+  <!-- OWN JS CODE -->
+  <script src="{% static 'scripts/swiper832.js' %}"></script>
+  <script src="{% static 'scripts/header.js' %}"></script>
+  <script src="{% static 'scripts/common.js' %}"></script>
+  <script src="{% static 'orders/scripts.js' %}"></script>
+  <script src="{% static 'cart/index.js' %}"></script>
+  <script src="{% static 'scripts/sliderForCards.js' %}"></script>
+  <script src="{% static 'scripts/sideButtons.js' %}"></script>
+  <script src="{% static 'scripts/callBackModal.js' %}"></script>
+  <script src="{% static 'scripts/counter.js' %}"></script>
+  <script src="{% static 'scripts/removeFromCarts.js' %}"></script>
+  <script src="{% static 'scripts/addToCarts.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+.ordered-top-controls {
+    display: flex;
+    gap: 200px;
+    padding-top: 50px;
+}
+
+.link-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 42px;
+    padding: 5px 15px;
+    color: var(--gray, #CCC);
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.link-button:hover {
+    background-color: var(--red, #8E1533);
+    box-shadow: 0px 4px 6px 0px rgba(142, 21, 51, 0.15);
+    color: var(--white);
+}
+
+.active-button {
+    color: var(--dark-grey, #222220);
+    background: var(--light-gray, #EEE);
+}
+
+@media only screen and (max-width: 700px) {
+    .ordered-top-controls {
+        gap: 5px;
+        flex-direction: column;
+    }
+
+    .link-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 35px;
+        padding: 5px 15px;
+    }
+}

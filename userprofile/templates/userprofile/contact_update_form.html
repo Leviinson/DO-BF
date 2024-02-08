@@ -1,0 +1,16 @@
+{% extends 'mainpage/base.html' %}
+{% load static %}
+{% block content %}
+
+    <h3>Customer contact update form</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit changes"/>
+    </form>
+    <form method="post" action="{% url 'userprofile:delete_contact' user.zoho_id %}">
+        {% csrf_token %}
+        {{ delete_form }}
+        <input type="submit" value="Delete address"/>
+    </form>
+{% endblock content %}

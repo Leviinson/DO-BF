@@ -1,0 +1,468 @@
+{% load static %}
+<!-- HEADER -->
+<header 
+  class="header-container" 
+  data-currency-name="{{ selected_currency.Name }}"
+  data-region="{{ region.slug }}"
+>
+  <!-- HEADER-DESKTOP -->
+  <div class="header-desktop">
+    <!-- TOP-SECTION -->
+    
+    <div class="top-section bg-light-red">
+      <div class="container">
+        <div class="left">
+          <div class="location">
+            <!-- BUTTON-TRIGGER-MODAL-CALL-BACK -->
+            <button type="button" class="p-16-auto-regular red" data-bs-toggle="modal"
+              data-bs-target="#userLocationModal">
+              <span class="icon"></span>
+              {{ region.country_name }}, {{ region.city }}
+            </button>
+            <!-- SELECTED -->
+          </div>
+          <div class="help-link">
+            <a href="{% url 'fillers:about' region.slug %}?currency={{ selected_currency.Name }}" class="p-14-auto-regular">Про нас</a>
+            <a href="{% url 'fillers:delivery' region.slug %}?currency={{ selected_currency.Name }}" class="p-14-auto-regular">Доставка і оплата</a>
+            <a href="{% url 'fillers:contacts' region.slug %}?currency={{ selected_currency.Name }}" class="p-14-auto-regular">Контакти</a>
+          </div>
+        </div>
+        <div class="right">
+          <!-- LANG -->
+
+          <!-- <div class="accordion-lang" id="accordionLang">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button accordion-button-header collapsed p-16-auto-regular" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseLang" aria-expanded="false" aria-controls="collapseLang">
+                  Укр
+                  <span class="accordion-button-arrow"></span>
+                </button>
+              </h2>
+              <div id="collapseLang" class="accordion-collapse collapse" aria-labelledby="headingLang"
+                data-bs-parent="#accordionLang">
+                <div class="accordion-body">
+                  <ul>
+                    <li>
+                      <a class="p-16-auto-regular grey">
+                        Eng
+                      </a>
+                    </li>
+                    <li>
+                      <a class="p-16-auto-regular grey">
+                        Pln
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- CURRENCY -->
+          <div class="accordion-currency" id="accordionCurrency">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button accordion-button-header collapsed p-16-auto-regular" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseCurrency" aria-expanded="false" aria-controls="collapseCurrency">
+                    {{ selected_currency.symbol }} / {{ selected_currency.Name }}
+                    <span class="accordion-button-arrow"></span>
+                </button>
+                <!-- DEFAULT -->
+              </h2>
+              <div id="collapseCurrency" class="accordion-collapse collapse" aria-labelledby="headingCurrency"
+                data-bs-parent="#accordionCurrency">
+                <div class="accordion-body">
+                  {% if currencies %}
+                    <ul>
+                      {% for currency in currencies %}
+                        <li>
+                          <a class="p-16-auto-regular grey" href="?currency={{ currency.Name }}">
+                            {{ currency.symbol }} / {{ currency.Name }}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIDDLE-SECTION -->
+
+    <div class="middle-section">
+      <div class="container">
+        <a class="logo-box" href="{% url 'main_page:mainpage-view' region.slug %}?currency={{ selected_currency.Name }}">
+          <img src="{% static 'mainpage/img/logo.svg' %}" alt="Site Logo" />
+        </a>
+        <div class="search-input-container">
+          <!-- SEARCH-INPUT -->
+          <input 
+            type="text" 
+            class="p-16-auto-regular darck-gray search-input search-input-trigger"
+            name="search"
+            placeholder="Пошук..." 
+          />
+          <!-- SEARCH-ICON -->
+          <button class="search-input-button icon"></button>
+        </div>
+        <!-- <a class="button-main-text-icon p-16-auto-regular user-page-link" href="#">
+          <span class="icon"></span>
+          Особистий кабінет
+        </a> -->
+        <a 
+          href="{% url 'cart:cart' region.slug %}?currency={{ selected_currency.Name }}"
+          class="button-main-text-icon p-16-auto-regular cart-page-link" 
+          itemprop="url" 
+          itemscope itemtype="http://schema.org/ShoppingCart"
+        >
+          <div class="cart-counter-container">
+            <span class="icon"></span>
+            <span class="products-count">{{ cart_products_quantity }}</span>
+          </div>
+          <span itemprop="name">Кошик</span>
+        </a>
+        <div class="call-back-container">
+          <div class="accordion-callback" id="accordionCallBack">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button accordion-button-header collapsed p-16-auto-regular" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseCallBack" aria-expanded="false" aria-controls="collapseCallBack">
+                  <span class="icon"></span>
+                  <a href="tel:{{ region.international_phone_number }}" class="number p-16-auto-regular">
+                    {{ region.international_phone_number }}
+                  </a>
+                  <span class="accordion-button-arrow"></span>
+                </button>
+                <!-- # ДЕФОЛТНОЕ ЗНАЧЕНИЕ -->
+              </h2>
+              <div id="collapseCallBack" class="accordion-collapse collapse" aria-labelledby="headingCallBack"
+                data-bs-parent="#accordionCallBack">
+                <div class="accordion-body">
+                  <ul>
+                    <li>
+                      <a href="tel:{{ region.local_phone_number_1 }}" class="p-16-auto-regular">
+                        {{ region.local_phone_number_1 }}
+                      </a>
+                      <!-- # ДОПОЛНИТЕЛЬНОЕ ЗНАЧЕНИЕ -->
+                    </li>
+                    <li>
+                      <a href="tel:{{ region.local_phone_number_2 }}" class="p-16-auto-regular">
+                        {{ region.local_phone_number_2 }}
+                      </a>
+                      <!-- # ДОПОЛНИТЕЛЬНОЕ ЗНАЧЕНИЕ -->
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- BUTTON-TRIGGER-MODAL-CALL-BACK -->
+          <button type="button" class="p-16-auto-regular red" data-bs-toggle="modal" data-bs-target="#callBackModal">
+            Зворотній Дзвінок 
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM-SECTION -->
+
+    <div class="bottom-section">
+      <div class="container">
+        <nav class="bottom-section-nav" itemscope itemtype="http://schema.org/SiteNavigationElement">
+          <ul>
+            {% for category in categories %}
+              {% if category.subcategories %}
+                <li itemprop="name">
+                  <button class="p-16-auto-medium product-categories-container-trigger" tabindex="-1">
+                    <span class="bottom-section-category-title">{{ category.Name }}</span>
+                  </button>
+                </li>
+              {% else %}
+                <li itemprop="name">
+                  <a class="p-16-auto-medium bottom-section-category-title" href="" itemprop="url">{{ category.Name }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+            {% for category in custom_categories %}
+              <li itemprop="name">
+                <a 
+                  class="p-16-auto-medium bottom-section-category-title" 
+                  href="{{ category.link }}" 
+                  itemprop="url"
+                >
+                  {{ category.title }}
+                </a>
+              </li>
+            {% endfor %}
+            <li itemprop="name">
+              <a class="p-16-auto-medium bottom-section-category-title-red" href="#" itemprop="url">Акції</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <!-- SEARCH-RESULTS -->
+
+    <div class="container search-results-container"></div>
+
+    <!-- HEADER-CATEGORIES -->
+
+    {% for category in categories %}
+      {% if category.subcategories %}
+        <ul class="container product-categories-container">
+          {% for subcategory in category.subcategories %}
+            <li>
+              <a href="{% url 'catalogue:subcategory_view' region.slug category.slug subcategory.slug %}?currency={{ selected_currency.Name }}" class="cart-prod-categories">
+                <div class="img-box" style="
+                                      background-image: url({{ subcategory.image.image.url }});
+                                  "></div>
+                <div>
+                  <h3 class="p-16-auto-regular">{{ subcategory.Name }}</h3>
+                </div>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- HEADER-MOBILE -->
+  <div class="header-mobile">
+    <div class="container">
+      <div class="left">
+        <div class="header-menu-trigger">
+          <span class="icon"></span>
+        </div>
+        <a class="logo-box" href="{% url 'main_page:mainpage-view' region.slug %}?currency={{ selected_currency.Name }}">
+          <img src="{% static 'mainpage/img/logo.svg' %}" alt="Logo" />
+        </a>
+      </div>
+
+      <div class="right">
+        <div class="cart-link">
+          <a class="cart-page-link" href="{% url 'cart:cart' region.slug %}?currency={{ selected_currency.Name }}">
+            <div class="cart-counter-container">
+              <span class="icon"></span>
+              <span class="products-count">{{ cart_products_quantity }}</span>
+            </div>
+          </a>
+        </div>
+        <div class="search-trigger">
+          <button type="button" data-bs-toggle="modal" data-bs-target="#mobileSearchModal">
+            <span class="icon"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-header" id="menu-header">
+    <div class="container">
+      <div class="top">
+        <span class="icon" onclick="closeMenu()"></span>
+        <p class="h2-24-auto-bold">Меню</p>
+      </div>
+      <div class="middle">
+        <div class="lang-value-container b-b-light-gray">
+          <!-- LANG -->
+
+          <!-- <div class="accordion-lang" id="accordionLang">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed p-16-auto-regular" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseLang" aria-expanded="false" aria-controls="collapseLang">
+                  Укр
+                  <span class="accordion-button-arrow"></span>
+                </button>
+              </h2>
+              <div id="collapseLang" class="accordion-collapse collapse" aria-labelledby="headingLang"
+                data-bs-parent="#accordionLang">
+                <div class="accordion-body">
+                  <ul>
+                    <li>
+                      <a class="p-16-auto-regular grey">
+                        Eng
+                      </a>
+                    </li>
+                    <li>
+                      <a class="p-16-auto-regular grey">
+                        Pln
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- CURRENCY -->
+
+          <div class="accordion-currency" id="accordionCurrency">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed p-16-auto-regular" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseCurrency" aria-expanded="false" aria-controls="collapseCurrency">
+                  {{ selected_currency.symbol }}
+                  <span class="accordion-button-arrow"></span>
+                </button>
+              </h2>
+              <div id="collapseCurrency" class="accordion-collapse collapse" aria-labelledby="headingCurrency"
+                data-bs-parent="#accordionCurrency">
+                <div class="accordion-body">
+                  {% if currencies %}
+                    <ul>
+                      {% for currency in currencies %}
+                        <li>
+                          <a class="p-16-auto-regular grey" href="{% url 'main_page:mainpage-view' region.slug %}?currency={{ currency.Name }}">
+                            {{ currency.symbol }} / {{ currency.Name }}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="location">
+          <button type="button" class="p-16-auto-regular b-a-light-gray" data-bs-toggle="modal"
+            data-bs-target="#userLocationModal">
+            <span class="icon"></span>
+            {{ region.country_name }}, {{ region.city }}
+          </button>
+        </div>
+        <nav itemscope itemtype="http://schema.org/SiteNavigationElement">
+          <ul>
+            {% for category in categories %}
+              {% if category.subcategories %}
+                <li class="accordion-nav-link-container" id="accordion{{ category.id }}" itemprop="name">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button class="accordion-button collapsed h3-20-auto-medium link b-b-light-gray bottom-section-category-title" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse{{ category.id }}" aria-expanded="false"
+                        aria-controls="collapse{{ category.id }}"
+                      >
+                        {{ category.Name }}
+                        <span class="accordion-button-arrow"></span>
+                      </button>
+                    </h2>
+                    <div id="collapse{{ category.id }}" class="accordion-collapse collapse"
+                      aria-labelledby="heading{{ category.id }}" data-bs-parent="#accordion{{ category.id }}">
+                      <ul class="accordion-body">
+                        {% for subcategory in category.subcategories %}
+                          <li>
+                            <a href="{% url 'catalogue:subcategory_view' region.slug category.slug subcategory.slug %}?currency={{ selected_currency.Name }}" class="h3-20-auto-medium link b-b-light-gray">
+                              {{ subcategory.Name }}
+                            </a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              {% else %}
+                <li itemprop="name">
+                  <a href="{{ category.link }}" class="h3-20-auto-medium link b-b-light-gray bottom-section-category-title">{{ category.Name }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+            {% for category in custom_categories %}
+              <li itemprop="name">
+                <a class="h3-20-auto-medium link b-b-light-gray bottom-section-category-title" href="{{ category.link }}">{{ category.title }}</a>
+              </li>
+            {% endfor %}
+            <li itemprop="name" class="bottom-section-category-title-container">
+              <a class="h2-24-auto-medium bottom-section-category-title-red" href="#" itemprop="url">Акції</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- <a class="user-page-link b-b-light-gray h3-20-auto-medium link">
+          <span class="icon"></span>
+          Особистий кабінет
+        </a> -->
+        <div class="social-media-link">
+          <a class="contact-us-btn icon" href="{{ region.viber_link }}"></a>
+          <a class="contact-us-btn icon" href="{{ region.telegram_link }}"></a>
+          <a class="contact-us-btn icon" href="{{ region.whatsapp_link }}"></a>
+        </div>
+        <div class="contacts-number">
+          <button type="button" class="call-back-menu-btn h3-20-auto-medium link b-b-light-gray"
+            data-bs-toggle="modal" data-bs-target="#callBackModal">
+            Зворотній Дзвінок
+            <span class="icon"></span>
+          </button>
+          <div class="phone-numbers-ukr">
+            <h3 class="h3-20-auto-light grey">Україна</h3>
+            <div class="list">
+              <a href="tel:{{ region.local_phone_number_1 }}" class="p-16-auto-regular">
+                <span class="icon red"></span>
+                {{ region.local_phone_number_1 }}
+              </a>
+              <a href="tel:{{ region.local_phone_number_2 }}" class="p-16-auto-regular">
+                <span class="icon red"></span>
+                {{ region.local_phone_number_2 }}
+              </a>
+            </div>
+          </div>
+          <div class="phone-numbers-int">
+            <h3 class="h3-20-auto-light grey">
+              Міжнародний
+            </h3>
+            <div class="list">
+              <a href="tel:{{ region.international_phone_number }}" class="p-16-auto-regular">
+                <span class="icon red"></span>
+                {{ region.international_phone_number }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom bg-light-red">
+      <div class="help-link">
+        <div class="box">
+          <a href="{% url 'fillers:about' region.slug %}?currency={{ selected_currency.Name }}" class="h3-20-auto-light red">Про нас</a>
+        </div>
+        <div class="box">
+          <a href="{% url 'fillers:delivery' region.slug %}?currency={{ selected_currency.Name }}" class="h3-20-auto-light red">Доставка і оплата</a>
+          <a href="{% url 'fillers:contacts' region.slug %}?currency={{ selected_currency.Name }}" class="h3-20-auto-light red">Контакти</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+  <!-- MODAL-MOBILE-SEARCH -->
+  <div class="modal fade mobileSearchModal" id="mobileSearchModal" tabindex="-1"
+  aria-labelledby="mobileSearchModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="search-input-container">
+            <input 
+              type="text" 
+              class="p-16-auto-regular darck-gray search-input search-input-trigger-mobile"
+              name="search"
+              placeholder="Пошук..." 
+            />
+            <button class="search-input-button icon"></button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="search-container-mobile"></div>
+        </div>
+        <button type="button" class="btn-close icon bg-red white" data-bs-dismiss="modal" aria-label="Close">
+          
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,214 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'mainpage/favicon.svg' %}" type="image/x-icon" />
+    <!-- FOR-PHONE-INPUT -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{% static 'fillers/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/common.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/footer.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/sideButtons.css' %} " />
+    <link rel="stylesheet" href="{% static 'styles/callBackModal.css' %}">
+    <title>Доставка</title>
+</head>
+
+<body>
+    {% include 'core_components/header.html' %}
+
+    <main>
+        <div class="container">
+            <div class="title">
+                <h1>Доставка</h1>
+            </div>
+            <div class="main">
+                <div class="main-img"><img src="{{ delivery_context.main_image.url }}" alt="img" /></div>
+                <div class="pay__inner">
+                    <div class="pay__title">
+                        <h3>Доставка по місту Київ працює щодня цілодобово! </h3>
+                    </div>
+                    <br>
+                    <div class="pay__text">
+                        <span>Доставка Новою поштою по всій Україні: </span>
+                        <p>У відділення «Нової пошти» або кур'єром за вашою адресою</p>
+                    </div>
+                    <div class="pay__text">
+                        <p>Умови доставки: </p>
+                        <p>Доставка сервісом Нова Пошта можлива лише при передоплаті</p>
+                    </div>
+                    <div class="pay__text">
+                        <p>Вартість доставки сплачується згідно тарифів та умов кур'єрської службы «Нова пошта».</p>
+                    </div>
+                    <div class="pay__text">
+                        <p>Сроки та графік доставки замовлення залежать від адреси отримувача, а також умов сервісу
+                            «Нова
+                            пошта».</p>
+                    </div>
+                    <div class="pay__text">
+                        <p>Якщо є питання, Ви можете зв'язатися з нашим менеджером.</p>
+                    </div>
+                    <div class="pay__deliver">
+                        <h3>Доставка в місті <span>{{ region.city }}</span>
+                    </div>
+                    <div class="pay__map"></div>
+                    <div class="pay__info">
+                        <div class="pay__info-item">
+                            <div class="pay__info-blocks">
+                                <div class="pay__info-block pay__info-block-bg1"></div>
+                                <div class="pay__info-block pay__info-block-bg2"></div>
+                                <div class="pay__info-block pay__info-block-bg2"></div>
+                            </div>
+                            <div class="pay__info-text">
+                                <p>Безкоштовна доставка від 600 грн</p>
+                            </div>
+                        </div>
+                        <div class="pay__info-item">
+                            <div class="pay__info-blocks">
+                                <div class="pay__info-block pay__info-block-bg3"></div>
+                            </div>
+                            <div class="pay__info-text">
+                                <p>Вартість доставки уточніть у менеджера</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pay__mes">
+                        <p>Замовлення потрібно робити мінімум за 2 години до часу, коли ви хочете його отримати</p>
+                    </div>
+                    <div class="pay__items">
+                        <div class="pay__item">
+                            <div class="pay__item-img"><img src="{% static 'fillers/img/sun.svg' %}" alt="alt" /></div>
+                            <div class="pay__item-block">
+                                <div class="pay__item-subtitle">Денна доставка</div>
+                                <div class="pay__item-title">доставка - 150 грн</div>
+                                <div class="pay__item-text">при замовленні з 8:00 до 22:00 на суму до 600 грн</div>
+                            </div>
+                        </div>
+                        <div class="pay__item">
+                            <div class="pay__item-img"><img src="{% static 'fillers/img/moon.svg' %}" alt="alt" /></div>
+                            <div class="pay__item-block">
+                                <div class="pay__item-subtitle">Денна доставка</div>
+                                <div class="pay__item-title">доставка - 150 грн</div>
+                                <div class="pay__item-text">при замовленні з 8:00 до 22:00 на суму до 600 грн</div>
+                            </div>
+                        </div>
+                        <div class="pay__item">
+                            <div class="pay__item-img"><img src="{% static 'fillers/img/car.svg' %}" alt="alt" /></div>
+                            <div class="pay__item-block">
+                                <div class="pay__item-subtitle">Денна доставка</div>
+                                <div class="pay__item-title">доставка - 150 грн</div>
+                                <div class="pay__item-text">при замовленні з 8:00 до 22:00 на суму до 600 грн</div>
+                            </div>
+                        </div>
+                        <div class="pay__item">
+                            <div class="pay__item-img"><img src="{% static 'fillers/img/clocks.svg' %}" alt="alt" />
+                            </div>
+                            <div class="pay__item-block">
+                                <div class="pay__item-subtitle">Денна доставка</div>
+                                <div class="pay__item-title">доставка - 150 грн</div>
+                                <div class="pay__item-text">при замовленні з 8:00 до 22:00 на суму до 600 грн</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pay__items-block">
+                        <p>Для доставки в нічний період замовлення потрібно зробити до 20:00 !!!</p>
+                    </div>
+                    <div class="pay__text">
+                        <p>Доставка виконується за адресою, вказаною вами в замовленні. У разі якщо одержувача немає на
+                            місці, букет буде залишений родичам, знайомим, консьєржу, колегам або іншим третім особам.
+                        </p>
+                    </div>
+                    <div class="pay__text">
+                        <p>Якщо потрібна термінова доставка - зв'яжіться з нашими менеджерами, вони обов'язково
+                            допоможуть!
+                        </p>
+                    </div>
+                    <div class="pay__icons">
+                        <a href="{{ region.facebook_link }}" class="icon contact-us-btns facebook"></a>
+                        <a href="{{ region.telegram_link }}" class="icon contact-us-btns telegram"></a>
+                        <a href="{{ region.whatsapp_link }}" class="icon contact-us-btns whatsapp"></a>
+                        <a href="{{ region.instagram_link }}" class="icon contact-us-btns instagram"></a>
+                    </div>
+                    <div class="pay__phone">(098) 997-19-91</div>
+                    <div class="pay__phone">(098) 997-19-91</div>
+                    <div class="pay__pay">Оплата</div>
+                    <div class="pay__text">
+                        <p>Оплату наших товарів і послуг ви можете зробити будь-яким найбільш зручним для вас способом:
+                        </p>
+                    </div>
+                    <div class="pay__bank"><img src="{% static 'fillers/img/bank-card.svg' %}" alt="img" /></div>
+                    <div class="pay__visa">
+                        <p>Банківською картою (Visa/Mastercard)</p>
+                    </div>
+                    <div class="pay__text">
+                        <p>Після оформлення замовлення ви будете перенаправлені на сторінку обраної платіжної системи.
+                        </p>
+                    </div>
+                    <div class="pay__pic">
+                        <div class="pay__pic-block"><img src="{% static 'fillers/img/portmone.png' %}" alt="portmone" />
+                        </div>
+                        <div class="pay__pic-block"><img src="{% static 'fillers/img/visa.png' %}" alt="visa" /></div>
+                        <div class="pay__pic-block"><img src="{% static 'fillers/img/mastercard.png' %}"
+                                alt="mastercard" /></div>
+                        <div class="pay__pic-block"><img src="{% static 'fillers/img/liqpay.png' %}" alt="liqpay" />
+                        </div>
+                        <div class="pay__pic-block"><img src="{% static 'fillers/img/privatbank.png' %}"
+                                alt="privatbank" /></div>
+                        <div class="pay__pic-block"><img src="{% static 'fillers/img/monobank.png' %}" alt="monobank" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- MODAL-CALL-BACK -->
+    {% include 'core_components/callBackModal.html' %}
+
+    <!-- MODAL-USER-LOCATION -->
+    {% include 'core_components/locationModal.html' %}
+
+    <!-- SOCIALS BUTTONS -->
+    {% include 'core_components/buttons.html' %}
+  </main>
+  
+  <!-- FOOTER -->
+  {% include 'core_components/footer.html' %}
+
+  <!-- SCRIPT`S -->
+
+  <!-- BOOTSTRAP-BUNDLE-MIN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <!-- AXIOS -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <!-- TEL FLAGS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet" />
+
+  <!-- Places в Maps JavaScript API -->
+  <script src="{% static 'scripts/locationModal.js' %}"></script>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5i5JJfxtMemi02YamAeiMa1FqYbOqCQA&libraries=places&language=en&callback=initAutocomplete" async defer>
+  </script>
+
+  <!-- OWN JS CODE -->
+  <script src="{% static 'scripts/header.js' %}"></script>
+  <script src="{% static 'scripts/common.js' %}"></script>
+  <script src="{% static 'scripts/sideButtons.js' %}"></script>
+  <script src="{% static 'scripts/callBackModal.js' %}"></script>
+</body>
+
+</html>

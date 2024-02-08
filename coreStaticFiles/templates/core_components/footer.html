@@ -1,0 +1,141 @@
+{% load static %}
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer">
+      <div class="main-section">
+        <div class="logo-block">
+          <a class="logo-box" href="{% url 'main_page:mainpage-view' region.slug %}?currency={{ selected_currency.Name }}">
+            <img src="{% static 'mainpage/img/logo.svg' %}" alt="Site Logo" />
+          </a>
+
+          <!-- <div class="contact-us">
+            <a href="{{ region.facebook_link }}" class="icon contact-us-btn facebook"></a>
+            <a href="{{ region.telegram_link }}" class="icon contact-us-btn telegram"></a>
+            <a href="{{ region.whatsapp_link }}" class="icon contact-us-btn whatsapp"></a>
+            <a href="{{ region.instagram_link }}" class="icon contact-us-btn instagram"></a>
+          </div> -->
+        </div>
+
+        <div class="contacts">
+          <div class="top-section">
+            <h4 class="p-16-auto-medium">Контакти</h4>
+
+            <div class="phone-section">
+              <div class="phone-block">
+                <h5 class="p-14-auto-light">Україна</h5>
+
+                <ul class="numbers">
+                  <li>
+                    <a href="tel:{{ region.local_phone_number_1 }}"
+                      class="button-main-text-icon p-16-auto-regular user-page-link red">
+                      <span class="icon red"></span>
+                      {{ region.local_phone_number_1 }}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="tel:{{ region.local_phone_number_2 }}"
+                      class="button-main-text-icon p-16-auto-regular user-page-link red">
+                      <span class="icon red"></span>
+                      {{ region.local_phone_number_2 }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="phone-block">
+                <h5 class="p-14-auto-light">
+                  Міжнародний
+                </h5>
+
+                <ul class="numbers">
+                  <li>
+                    <a href="tel:{{ region.international_phone_number }}"
+                      class="button-main-text-icon p-16-auto-regular user-page-link red">
+                      <span class="icon red"></span>
+                      {{ region.international_phone_number }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="email-section">
+              <h4 class="p-14-auto-light">Пошта</h4>
+              <div>
+                <a href="mailto:bonnyflowers@gmail.com"
+                  class="button-main-text-icon p-16-auto-regular user-page-link red">
+                  <span class="icon red"></span>
+                  {{ region.email }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="category">
+          <h4 class="p-16-auto-medium">Категорії</h4>
+
+          <div class="info">
+            <a class="p-14-auto-light" href="">Доставка и оплата</a>
+            <a class="p-14-auto-light" href="">Гарантии качества</a>
+            <a class="p-14-auto-light" href="">Условия и положения</a>
+          </div>
+        </div>
+
+        <div class="for-clients">
+          <h4 class="p-16-auto-medium">Для клієнта</h4>
+
+          <div class="info-block">
+            <ul class="info">
+              <li>
+                <a class="p-14-auto-light" href="">
+                  Доставка и оплата
+                </a>
+              </li>
+              <li>
+                <a class="p-14-auto-light" href="">
+                  Гарантии качества
+                </a>
+              </li>
+              <li>
+                <a class="p-14-auto-light" href="">
+                  Условия и положения
+                </a>
+              </li>
+            </ul>
+
+            <ul class="info">
+              <li>
+                <a class="p-14-auto-light" href="">
+                  Отзывы
+                </a>
+              </li>
+              <li>
+                <a class="p-14-auto-light" href="">
+                  О нас
+                </a>
+              </li>
+              <li>
+                <a class="p-14-auto-light" href="">
+                  Блог
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="contact-us">
+          <a href="{{ region.facebook_link }}" class="icon contact-us-btn facebook"></a>
+          <a href="{{ region.telegram_link }}" class="icon contact-us-btn telegram"></a>
+          <a href="{{ region.whatsapp_link }}" class="icon contact-us-btn whatsapp"></a>
+          <a href="{{ region.instagram_link }}" class="icon contact-us-btn instagram"></a>
+        </div>
+        <p class="bottom-section all-rights-reserved">
+          <span class="p-16-auto-regular red">© 2023 BonnyFlowers.com</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

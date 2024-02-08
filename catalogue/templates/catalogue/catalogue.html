@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    {% if subcategory_crumb %}
+      {{ subcategory_crumb.title }}
+    {% else %}
+      {{ category_crumb.title }}
+    {% endif %}
+  </title>
+
+  <!-- FAVICON -->
+
+  <link rel="shortcut icon" href="{% static 'mainpage/favicon.svg' %}" type="image/x-icon" />
+
+  <!-- FOR-PHONE-INPUT -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <!-- BOOTSTRAP -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+  <!-- SITE-STYLE -->
+
+  <link rel="stylesheet" href="{% static 'styles/common.css' %}"/>
+  <link rel="stylesheet" href="{% static 'catalogue/catalogue.css' %}"/>
+  <link rel="stylesheet" href="{% static 'styles/header.css' %}"/>
+  <link rel="stylesheet" href="{% static 'styles/footer.css' %}"/>
+  <link rel="stylesheet" href="{% static 'styles/sideButtons.css' %}"/>
+  <link rel="stylesheet" href="{% static 'styles/quickOrderModal.css' %}"/>
+  <link rel="stylesheet" href="{% static 'styles/callBackModal.css' %}"/>
+  <link rel="stylesheet" href="{% static 'styles/cardXlForSlider.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/breadcrumbs.css' %}">
+</head>
+
+<body>
+  <!-- HEADER -->
+
+  {% include 'core_components/header.html' %}
+
+  <main>
+    <!-- BREADCRUMBS -->
+    <div class="container catalogue-container m-b-60">
+      <section class="catalogue-breadcrumbs-container m-b-60">
+        <div class="breadcrumbs catalogue-breadcrumbs">
+          <!-- ARROW-LEFT -->
+          <a href="{% url 'main_page:mainpage-view' region.slug %}?currency={{ selected_currency.Name }}" class="icon darck-gray"></a>
+          <!-- LINK`S LIST -->
+          <ul>
+            <li>
+              <a 
+                href="{% url 'catalogue:category_view' region.slug category_slug %}?currency={{ selected_currency.Name }}" 
+                class="p-14-auto-regular breadcrumbs-link"
+              >
+                {{ category_crumb.title }}
+              </a>
+            </li>
+
+            {% if subcategory_crumb %}
+              <li>
+                <a 
+                  href="{% url 'catalogue:subcategory_view' region.slug category_slug subcategory_slug %}?currency={{ selected_currency.Name }}" 
+                  class="p-14-auto-regular breadcrumbs-link"
+                >
+                  {{ subcategory_crumb.title }}
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </section>
+
+
+      <!-- CATALOGUE FILTER SECTION -->
+      <section class="catalogue-filter-section">
+        <div class="title-box m-b-60 catalogue-filter-title">
+          {% if subcategory_crumb %}
+            <h4 class="h1-42-auto-bold">{{ subcategory_crumb.title }}</h4>
+          {% else %}
+            <h4 class="h1-42-auto-bold">{{ category_crumb.title }}</h4>
+          {% endif %}
+        </div>
+
+        <!-- CATALOGUE TOP CONTROLS -->
+        <div class="m-b-60 catalogue-controls-container">
+          <!-- CATALOGUE FILTER BUTTON-->
+
+          <!-- CATALOGUE SORT-->
+          <div class="accordion-category" id="accordionSort">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button
+                  type="button"
+                  class="accordion-button collapsed p-16-auto-regular catalogue-sort-title"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseSort"
+                  aria-expanded="false"
+                  aria-controls="collapseSort"
+                >
+                  Сортування
+                </button>
+              </h2>
+              <div 
+                id="collapseSort"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingSort"
+                data-bs-parent="#accordionSort"
+              >
+                <div class="accordion-body sort-list catalogue-sort-container">
+                  <ul class="accordion-list-group">
+                      <li class="radio-input-group">
+                        <a href="?sort=rec&currency={{ selected_currency.Name }}" class="p-16-auto-regular">
+                          Рекомендованные
+                        </a>
+                      </li>
+                      <li class="radio-input-group">
+                        <a href="?sort=disc&currency={{ selected_currency.Name }}" class="p-16-auto-regular">
+                          С акцией
+                        </a>
+                      </li>
+                      <li class="radio-input-group">
+                        <a href="?sort=low&currency={{ selected_currency.Name }}" class="p-16-auto-regular">
+                          Сначала дешёвое
+                        </a>
+                      </li>
+                      <li class="radio-input-group">
+                        <a href="?sort=high&currency={{ selected_currency.Name }}" class="p-16-auto-regular">
+                          Сначала дорогое
+                        </a>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATALOGUE FILTERED CARDS-->
+
+        <div class="catalogue-filtered-cards">
+          {% for product in products_page %}
+            {% include 'core_components/cardXlForSlider.html' %}
+          {% endfor %}
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="pagination">
+          <!-- ARROW-LEFT -->
+          {% if products_page.has_previous %}
+            <a href="?page={{ products_page.previous_page_number }}&sort={{ sort }}&currency={{ selected_currency.Name }}" class="icon darck-gray"></a>
+          {% endif %}
+          <!-- PAGE-LIST -->
+          <ul>
+            {% for page in products_page.paginator.page_range %}
+            <li>
+              {% if not page == products_page.number %}
+                <a href="?page={{ page }}&sort={{ sort }}&currency={{ selected_currency.Name }}" class="p-16-auto-regular grey">{{ page }}</a>
+              {% else %}
+                <span class="p-16-auto-regular grey selected-page">{{ page }}</a>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          <!-- ARROW-RIGHT -->
+          {% if products_page.has_next %}
+            <a href="?page={{ products_page.paginator.num_pages }}&sort={{ sort }}&currency={{ selected_currency.Name }}" class="icon darck-gray"></a>
+          {% endif %}
+        </div>
+      </section>
+    </div>
+
+    <div class="catalog-separator"></div>
+
+    <!-- CATALOGUE VIEWED SECTION-->
+    <div class="title-box m-b-70 catalogue-viewed-title">
+      <h4 class="h1-42-auto-bold">Ви переглядали</h4>
+    </div>
+    <div class="catalogue-slider-container">
+
+      <div class="catalogue-slider">
+        <div class="catalogue-slider-line">
+          {% for product in viewed_products %}
+            <div class="catalogue-card">
+              {% include 'core_components/cardXlForSlider.html' %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- MODAL-CALL-BACK -->
+    {% include 'core_components/callBackModal.html' %}
+
+    <!-- MODAL-USER-LOCATION -->
+    {% include 'core_components/locationModal.html' %}
+
+    <!-- MODAL-QUICK-ORDER -->
+    {% include 'core_components/quickOrderModal.html' %}
+
+    <!-- BUTTONS -->
+    {% include 'core_components/buttons.html' %}
+  </main>
+
+  <!-- FOOTER -->
+  {% include 'core_components/footer.html' %}
+
+  <!-- SCRIPT`S -->
+
+  <!-- BOOTSTRAP-BUNDLE-MIN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <!-- AXIOS -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <!-- TEL FLAGS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet" />
+
+  <!-- Places в Maps JavaScript API -->
+  <script src="{% static 'scripts/locationModal.js' %}"></script>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5i5JJfxtMemi02YamAeiMa1FqYbOqCQA&libraries=places&language=en&callback=initAutocomplete" async defer>
+  </script>
+
+  <!-- OWN JS CODE -->
+  <script src="{% static 'scripts/header.js' %}"></script>
+  <script src="{% static 'scripts/common.js' %}"></script>
+  <script src="{% static 'catalogue/catalogue.js' %}"></script>
+  <script src="{% static 'scripts/sliderForCards.js' %}"></script>
+  <script src="{% static 'scripts/sideButtons.js' %}"></script>
+  <script src="{% static 'scripts/quickOrderModal.js' %}"></script>
+  <script src="{% static 'scripts/callBackModal.js' %}"></script>
+  <script src="{% static 'scripts/addToCart.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+
+    <h2>Currencies</h2>
+    {% for currency in currencies %}
+        <div>Name: {{ currency.Name }}, symbol: {{ currency.symbol }}, id: {{ currency.id }}</div>
+    {% endfor %}
+
+        <h2>Categories</h2>
+    <div>
+        {% for category in categories %}
+            <div>Category: {{ category.Name }}</div>
+            <div>
+                {% for subcategory in category.subcategories %}
+                    <div>Subcategory slug: {{ subcategory.slug }}</div>
+                    <div>Subcategory Name: {{ subcategory.Name }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <h2>Sign in</h2>
+
+    <form method="post" action="{% url 'custom_auth:async_signin' %}">
+        {% csrf_token %}
+    {{ form }}
+        <button type="submit">Sign in</button>
+    </form>
+
+
+    <footer>
+        <h2>Footer</h2>
+        <div>Email: {{ contacts.email }}</div>
+        <div>Phone: {{ contacts.local_phone_number_1 }}</div>
+        <div>Phone: {{ contacts.local_phone_number_2 }}</div>
+        <div>Phone: {{ contacts.international_phone_number }}</div>
+        <div>Social: {{ contacts.social_link_1 }}</div>
+        <div>Social: {{ contacts.social_link_2 }}</div>
+        <div>Social: {{ contacts.social_link_3 }}</div>
+        <div>Social: {{ contacts.social_link_4 }}</div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'mainpage/favicon.svg' %}" type="image/x-icon" />
+    <!-- FOR-PHONE-INPUT -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{% static 'fillers/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/common.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/footer.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/sideButtons.css' %} " />
+    <link rel="stylesheet" href="{% static 'styles/callBackModal.css' %}">
+    <title>Контакти</title>
+</head>
+
+<body>
+    {% include 'core_components/header.html' %}
+
+    <main>
+        <div class="contacts">
+            <div class="container">
+                <div class="title">
+                    <h1>Контакти</h1>
+                </div>
+                <div class="main">
+                    <div class="main-img"><img src="{{ contacts_context.main_image.url }}" alt="img" /></div>
+                    <div class="cont">
+                        <div class="cont__block">
+                            <p class="cont__text">Телефонуйте нам або пишіть в месенджер</p>
+                            <p class="cont__subtext">Без вихідних з 8:00 до 22:00</p>
+                            <div class="cont__icons">
+                                <a href="{{ region.facebook_link }}" class="icon contact-us-btns facebook"></a>
+                                <a href="{{ region.telegram_link }}" class="icon contact-us-btns telegram"></a>
+                                <a href="{{ region.whatsapp_link }}" class="icon contact-us-btns whatsapp"></a>
+                                <a href="{{ region.instagram_link }}" class="icon contact-us-btns instagram"></a>
+                            </div>
+                        </div>
+                        <div class="cont__tel">
+                            <div class="cont__block-img">
+                                <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M25.4993 19.8456V23.2327C25.5006 23.5472 25.436 23.8584 25.3098 24.1465C25.1836 24.4346 24.9985 24.6933 24.7663 24.9058C24.5341 25.1184 24.2601 25.2802 23.9616 25.381C23.6631 25.4817 23.3469 25.5191 23.0331 25.4908C19.5519 25.1133 16.208 23.9261 13.27 22.0246C10.5366 20.2912 8.21917 17.9783 6.48225 15.2503C4.57034 12.3049 3.38052 8.95134 3.00918 5.46144C2.98091 5.14922 3.01809 4.83455 3.11835 4.53745C3.21861 4.24036 3.37976 3.96736 3.59153 3.73582C3.80331 3.50429 4.06106 3.3193 4.3484 3.19264C4.63573 3.06597 4.94634 3.0004 5.26046 3.00011H8.65434C9.20336 2.99472 9.73562 3.18875 10.1519 3.54604C10.5682 3.90334 10.8401 4.39951 10.9169 4.94208C11.0602 6.02604 11.3258 7.09036 11.7088 8.11472C11.861 8.51883 11.894 8.95802 11.8038 9.38025C11.7135 9.80248 11.5039 10.19 11.1997 10.497L9.76301 11.9309C11.3735 14.7575 13.7185 17.098 16.5508 18.7052L17.9875 17.2713C18.2951 16.9678 18.6834 16.7586 19.1065 16.6685C19.5296 16.5785 19.9696 16.6114 20.3745 16.7633C21.4009 17.1455 22.4674 17.4106 23.5535 17.5536C24.103 17.631 24.6049 17.9072 24.9637 18.3298C25.3224 18.7524 25.5131 19.2919 25.4993 19.8456Z"
+                                        stroke="#B69B89" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </div>
+                            <div class="cont__block-subtitle">
+                                <p>Україна</p>
+                                <p><a href="#">+38 (098) 997 19 91</a></p>
+                                <p><a href="#">+38 (073) 997 19 91</a></p>
+                            </div>
+                            <div class="cont__block-subtitle">
+                                <p>Міжнародний</p>
+                                <p><a>+44-2080681851</a></p>
+                            </div>
+                        </div>
+                        <div class="cont__mail">
+                            <div class="cont__mail-icon">
+                                <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M5.00024 4.99921H25.0002C26.3752 4.99921 27.5002 6.12421 27.5002 7.49921V22.4992C27.5002 23.8742 26.3752 24.9992 25.0002 24.9992H5.00024C3.62524 24.9992 2.50024 23.8742 2.50024 22.4992V7.49921C2.50024 6.12421 3.62524 4.99921 5.00024 4.99921Z"
+                                        stroke="#B69B89" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M27.5 7.5L15 16.25L2.5 7.5" stroke="#B69B89" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                </svg>
+                            </div>
+                            <div class="cont__mail-text">info@BonnyFlowers.ua</div>
+                        </div>
+                    </div>
+                    <div class="cont__quest">
+                        <div class="cont__quest-text">З'явилися питання?</div>
+                        <div class="cont__quest-btn">
+                            <button class="p-16-auto-regular" data-bs-toggle="modal" data-bs-target="#callBackModal">Зв'язатись</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL-CALL-BACK -->
+        {% include 'core_components/callBackModal.html' %}
+
+        <!-- MODAL-USER-LOCATION -->
+        {% include 'core_components/locationModal.html' %}
+
+        <!-- SOCIALS BUTTONS -->
+        {% include 'core_components/buttons.html' %}
+    </main>
+
+    <!-- FOOTER -->
+    {% include 'core_components/footer.html' %}
+
+    <!-- SCRIPT`S -->
+
+    <!-- BOOTSTRAP-BUNDLE-MIN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- TEL FLAGS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet" />
+
+    <!-- Places в Maps JavaScript API -->
+    <script src="{% static 'scripts/locationModal.js' %}"></script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5i5JJfxtMemi02YamAeiMa1FqYbOqCQA&libraries=places&language=en&callback=initAutocomplete"
+        async defer>
+        </script>
+
+    <!-- OWN JS CODE -->
+    <script src="{% static 'scripts/header.js' %}"></script>
+    <script src="{% static 'scripts/common.js' %}"></script>
+    <script src="{% static 'scripts/sideButtons.js' %}"></script>
+    <script src="{% static 'scripts/callBackModal.js' %}"></script>
+</body>
+
+</html>

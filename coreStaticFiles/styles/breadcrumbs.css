@@ -1,0 +1,60 @@
+/* BREADCRUMBS */
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3px;
+  padding: 5px;
+  background-color: var(--white);
+  border-radius: 5px;
+  z-index: var(--layer-2);
+}
+
+.breadcrumbs .icon {
+  font-weight: 600;
+}
+
+.breadcrumbs ul {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  align-items: center;
+}
+
+.breadcrumbs ul li {
+  position: relative;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.breadcrumbs ul li:first-child {
+  margin-left: 0;
+}
+
+.breadcrumbs ul li:first-child::before {
+  content: none;
+}
+
+.breadcrumbs ul li::before {
+  content: '/';
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  color: var(--gray);
+  transform: translate(0, -45%);
+}
+
+
+.breadcrumbs-link {
+  color: var(--gray);
+}
+
+@media screen and (max-width: 700px) {
+  .breadcrumbs ul li::before {
+      font-size: 10px;
+  }
+}

@@ -1,0 +1,41 @@
+<div class="card-s">
+  <div class="img-box">
+    <img class="quick-order-modal-card-img" src="{{ product.image.url }}" alt="{{ product.Name }}" />
+  </div>
+  <div class="prod-desc">
+    <div class="card-top">
+      <div class="prod-title">
+        <h3 class="p-16-auto-medium quick-order-modal-card-title">{{ product.Name }}</h3>
+        <p class="p-14-auto-regular quick-order-modal-card-article">Артикул: {{ product.sku }}</p>
+        {% if product.is_bouquet %}
+          <p class="p-14-auto-regular quick-order-modal-card-size">Размер: {{ product.selected_size }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="card-bottom">
+      <div class="prod-price">
+        <div class="current-price">
+          <p class="p-14-auto-regular">Ціна:</p>
+          <p class="p-16-auto-medium red quick-order-modal-card-price">
+            {% if product.new_price %}
+              {{ product.new_price }} {{ selected_currency.symbol }}
+            {% else %}
+              {{ product.unit_price }} {{ selected_currency.symbol }}
+            {% endif %}
+          </p>
+        </div>
+
+        {% if product.new_price %}
+          <div class="old-price">
+            <p class="p-14-auto-medium grey quick-order-modal-card-old-price">
+              {{ product.unit_price }} {{ selected_currency.symbol }}
+            </p>
+          </div>
+        {% endif %}
+      </div>
+      <div class="product-count" id="counter">
+        <p class="p-14-auto-medium">{{ product.cart_amount }} шт.</p>
+      </div>
+    </div>
+  </div>
+</div>

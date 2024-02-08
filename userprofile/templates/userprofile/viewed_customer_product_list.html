@@ -1,0 +1,23 @@
+{% extends 'mainpage/base.html' %}
+{% load static %}
+{% block content %}
+
+    <h3>Customer viewed products</h3>
+    <div>
+        {% for p in products %}
+            <h4>Product Name: {{ p.Name }}</h4>
+            <div>{{ p.id }}</div>
+            <div>unit_price: {{ p.unit_price }}</div>
+            <div>new_price: {{ p.new_price }}</div>
+            <div>discount: {{ p.discount }}</div>
+            <div>slug: {{ p.slug }}</div>
+            <div>region_slug: {{ p.region_slug }}</div>
+            <div>subcategory_slug: {{ p.subcategory_slug }}</div>
+            <div>category_slug: {{ p.category_slug }}</div>
+            <img src="{{ p.image.url }}" width="200" />
+            <a
+                    href="{% url 'products:product' p.region_slug p.category_slug p.subcategory_slug p.slug %}"
+            >Detail {{ p.Name }}</a>
+        {% endfor %}
+    </div>
+{% endblock content %}

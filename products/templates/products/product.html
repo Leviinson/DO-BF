@@ -1,0 +1,359 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ product.Name }}</title>
+
+  <!-- FAVICON -->
+
+  <link rel="shortcut icon" href="{% static 'mainpage/favicon.svg' %}" type="image/x-icon" />
+
+  <!-- FOR-PHONE-INPUT -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <!-- BOOTSTRAP -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+  <!-- SITE-STYLE -->
+
+  <link rel="stylesheet" href="{% static 'styles/common.css' %}">
+  <link rel="stylesheet" href="{% static 'products/product.css' %}" />
+  <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/sideButtons.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/counter.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/quickOrderModal.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/callBackModal.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/cardXlForSlider.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/breadcrumbs.css' %}">
+
+</head>
+
+<body>
+  <!-- HEADER -->
+  {% include 'core_components/header.html' %}
+
+  <main>
+    <!-- BREADCRUMBS -->
+    <div class="container product-container">
+      <div class="breadcrumbs product-breadcrumbs">
+        <!-- ARROW-LEFT -->
+        <a href="{% url 'main_page:mainpage-view' region.slug %}?currency={{ selected_currency.Name }}" class="icon darck-gray"></a>
+        <!-- LINK`S LIST -->
+        <ul>
+          <li>
+            <a 
+              href="{% url 'catalogue:category_view' region.slug category_slug %}?currency={{ selected_currency.Name }}" 
+              class="p-14-auto-regular breadcrumbs-link"
+            >
+              {{ category_crumb.title }}
+            </a>
+          </li>
+
+          {% if subcategory_crumb %}
+            <li>
+              <a 
+                href="{% url 'catalogue:subcategory_view' region.slug category_slug subcategory_slug %}?currency={{ selected_currency.Name }}" 
+                class="p-14-auto-regular breadcrumbs-link"
+              >
+                {{ subcategory_crumb.title }}
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="product-top-data product-top-data-mobile">
+      <div class="product-title-container">
+        <h4 class="h1-42-auto-bold">{{ product.Name }}</h4>
+        <p class="p-16-auto-regular">Артикул: {{ product.sku }}</p>
+      </div>
+      <p class="button-main-text p-14-auto-medium product-title-button">В Наявності</p>
+    </div>
+
+    <div class="container product-content m-b-60">
+      <!-- /* <-- PRODUCT IMAGE SLIDER -->
+      <div class="product-slider-container">
+        <div class="product-viewer">
+          <div class="product-slides">
+            {% for image in product.images %}
+              <div class="product-slide">
+                <div class="product-img"
+                  style="background-image: url({{image.url}});">
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="product-slider-buttons"></div>
+      </div>
+
+      <!-- PRODUCT CONTENT -->
+      <div 
+      class="product-data-container product-card" 
+      data-product-id="{{ product.id }}" 
+      data-region="{{ region.slug }}" 
+      data-is-bouquet="{{ product.is_bouquet }}"
+      data-selected-size="{{ selected_bouquet_size.value }}">
+        <div class="product-top-data-container">
+          <div class="product-top-data">
+            <div class="product-title-container">
+              <h4 class="h1-42-auto-bold">{{ product.Name }}</h4>
+              <p class="p-16-auto-regular">Артикул: {{ product.sku }}</p>
+            </div>
+            <p class="button-main-text p-14-auto-medium product-title-button">В Наявності</p>
+          </div>
+
+          <!-- This block will be hidden If product category is not a “bouquet” -->
+          {% if product.is_bouquet %} 
+            <div class="product-sizes-data">
+              <p class="p-16-auto-regular product-size-title">Розмір:</p>
+              <div class="">
+                <ul class="product-sizes">
+                  {% for size in product.bouquet_sizes %}
+                    <li>
+                      <input 
+                        class="form-check-input product-size" 
+                        type="radio"
+                        name="categoryName"
+                        id="product-size-{{ size.value }}"
+                        data-size="{{ size.value }}"
+                        hidden 
+                      />
+                      <label for="product-size-{{ size.value }}" class="product-size-label">
+                        <a href="?size={{ size.value }}&currency={{ selected_currency.Name }}" class="p-16-auto-medium">
+                          {{ size.value }}см
+                        </a>
+                      </label>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="product-instruction-data">
+            <span class="icon product-instruction-icon"></span>
+            <p class="p-14-auto-regular">Ціна під кожне замовлення індивідуальна і поточнюється у менеджера</p>
+          </div>
+
+          <div class="product-price-data">
+            <div class="product-price-group">
+              <p class="p-16-auto-regular">Ціна:</p>
+              <div class="product-price-value">
+                <p class="h2-24-auto-medium red">
+                  {% if product.discount %}
+                    {% if product.is_bouquet %}
+                      {{ selected_bouquet_size.new_price }}
+                    {% else %}
+                      {{ product.new_price }}
+                    {% endif %}
+                  {% else %}
+                    {% if product.is_bouquet %}
+                      {{ selected_bouquet_size.price }}
+                    {% else %}
+                      {{ product.unit_price }}
+                    {% endif %}
+                  {% endif %}
+                  {{ selected_currency.symbol }}
+                </p>
+                {% if product.discount %}
+                  <div class="old-price">
+                      <p class="p-16-auto-medium grey">
+                        {% if product.is_bouquet %}
+                          {{ selected_bouquet_size.price }}
+                        {% else %}
+                          {{ product.unit_price }}
+                        {% endif %}
+                        {{ selected_currency.symbol }}
+                      </p>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+            <button
+              type="button"
+              class="button-main-text-icon p-16-auto-bold product-cart-button add-to-cart"
+              data-is-added="{{ product.is_in_cart }}"
+            >
+              <span class="icon"></span>
+              До кошика
+            </button>
+            <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+            <div
+              class="product-cart-button-added"
+              hidden
+            >
+              <button class="delete-button icon remove-from-cart"></button>
+              {% include 'core_components/counter.html' %}
+            </div>
+          <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        </div>
+
+        <a
+          href="#"
+          class="p-16-auto-regular red quick-order-link product-quick-order"
+          data-bs-toggle="modal"
+          data-bs-target="#quickOrderModal"
+          data-product-article="{{ product.sku }}"
+          data-product-image="{{ product.images.0.url }}"
+          data-product-title="{{ product.Name }}"
+          data-product-discount-price="{{ product.new_price }}"
+          data-product-price="
+            {{ product.unit_price }}
+          "
+          data-product-id="{{ product.id }}"
+          data-product-currency="{{ selected_currency.symbol }}"
+        >
+          Швидке замовлення
+        </a>
+
+        <div class="product-bottom-data-container">
+          <div class="accordion-category product-description-container" id="accordionDescription">
+            <div class="accordion-item product-description">
+              <h2 class="accordion-header" id="headingOne">
+                <button
+                  type="button"
+                  class="accordion-button collapsed p-16-auto-medium"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseDescription"
+                  aria-expanded="false"
+                  aria-controls="collapseDescription"
+                >
+                  Опис
+                  <span class="accordion-button-arrow"></span>
+                </button>
+              </h2>
+              <div
+                class="accordion-collapse collapse"
+                id="collapseDescription"
+                aria-labelledby="headingCategory"
+                data-bs-parent="#accordionDescription"
+              >
+                <div class="accordion-body category-list">
+                  <p class="p-14-auto-regular">{{ product.desc }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-category product-description-container" id="accordionCharacteristics">
+            <div class="accordion-item product-description">
+              <h2 class="accordion-header" id="headingOne">
+                <button
+                  type="button"
+                  class="accordion-button collapsed p-16-auto-medium"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseCharacteristics"
+                  aria-expanded="false"
+                  aria-controls="collapseCharacteristics"
+                >
+                  Характеристики
+                  <span class="accordion-button-arrow"></span>
+                </button>
+              </h2>
+              <div
+                class="accordion-collapse collapse"
+                id="collapseCharacteristics"
+                aria-labelledby="headingCategory"
+                data-bs-parent="#accordionCharacteristics"
+              >
+                <div class="accordion-body category-list">
+                  <p class="p-14-auto-regular">{{ product.specs }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIMILAR PRODUCTS SECTION -->
+    <section class="slider-for-cards m-b-60">
+      <div class="slider-for-cards-container">
+        <div class="title-box m-b-70">
+          <h4 class="h1-42-auto-bold">Схожі товари</h4>
+        </div>
+        <div class="slider-product-container">
+          <div class="slide_viewer">
+            <div class="slide_group our-bestsellers-slider">
+              <div class="slide-card-container">
+                {% for product in similar_products %}
+                  {% include 'core_components/cardXlForSlider.html' %}
+
+                  {% if forloop.counter|divisibleby:3 %}
+                    </div>
+                    <div class="slide-card-container">
+                  {% endif %}
+                {% endfor %}
+              </div>
+
+            </div>
+          </div>
+          <a href="#" class="slide_buttons"></a>
+        </div>
+      </div>
+    </section>
+    <!-- MODALS -->
+
+    <!-- MODAL-CALL-BACK -->
+    {% include 'core_components/callBackModal.html' %}
+    <!-- MODAL-USER-LOCATION -->
+    {% include 'core_components/locationModal.html' %}
+
+    <!-- MODAL-QUICK-ORDER -->
+    {% include 'core_components/quickOrderModal.html' %}
+
+    <!-- SOCIALS BUTTONS -->
+    {% include 'core_components/buttons.html' %}
+  </main>
+
+  <!-- FOOTER -->
+  {% include 'core_components/footer.html' %}
+
+  <!-- SCRIPT`S -->
+
+  <!-- BOOTSTRAP-BUNDLE-MIN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <!-- AXIOS -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <!-- TEL FLAGS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet" />
+
+  <!-- Places в Maps JavaScript API -->
+  <script src="{% static 'scripts/locationModal.js' %}"></script>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5i5JJfxtMemi02YamAeiMa1FqYbOqCQA&libraries=places&language=en&callback=initAutocomplete" async defer>
+  </script>
+
+  <!-- OWN JS CODE -->
+  <script src="{% static 'scripts/header.js' %}"></script>
+  <script src="{% static 'scripts/common.js' %}"></script>
+  <script src="{% static 'products/product.js' %}"></script>
+  <script src="{% static 'scripts/sliderForCards.js' %}"></script>
+  <script src="{% static 'scripts/sideButtons.js' %}"></script>
+  <script src="{% static 'scripts/quickOrderModal.js' %}"></script>
+  <script src="{% static 'scripts/callBackModal.js' %}"></script>
+  <script src="{% static 'scripts/addToCart.js' %}"></script>
+  <script src="{% static 'scripts/removeFromCart.js' %}"></script>
+  <script src="{% static 'scripts/counter.js' %}"></script>
+</body>
+
+</html>

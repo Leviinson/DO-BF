@@ -1,0 +1,19 @@
+{% extends 'mainpage/base.html' %}
+{% load static %}
+{% block content %}
+
+    <h3>User info</h3>
+    <div>
+        {{ user_form.as_p }}
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password" size="10" placeholder="*************">
+    </div>
+    <button><a href="{% url 'custom_auth:password_change' %}">
+        Change password
+    </a></button>
+    <button><a href="{% url 'userprofile:update' user.zoho_id %}">
+        Change profile
+    </a></button>
+    <p></p>
+    <a href="{% url 'userprofile:addresses' user.zoho_id %}">My addresses</a>
+{% endblock content %}

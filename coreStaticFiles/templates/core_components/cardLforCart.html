@@ -1,0 +1,42 @@
+<div class="card-xs" href="{{ product.url }}">
+    <div class="img-box">
+      <img src="{{ product.image.url }}" alt="{{ product.Name }}" />
+    </div>
+    <div class="prod-desc">
+      <div class="card-top">
+        <div class="prod-title">
+          <h3 class="h2-24-auto-medium">
+          {{ product.Name }}
+          </h3>
+        </div>
+      </div>
+      <div class="card-bottom">
+        <div class="prod-price">
+          
+          <div class="current-price">
+            <p class="h2-24-auto-medium red">
+              {% if product.new_price %}
+                {{ product.new_price }} {{ selected_currency.symbol }}
+              {% else %}
+                {{ product.unit_price }} {{ selected_currency.symbol }}
+              {% endif %}
+            </p>
+          </div>
+
+          {% if product.new_price %}
+            <div class="old-price">
+              <p class="p-16-auto-medium grey">
+                  {{ product.unit_price }}
+              </p>
+            </div>
+          {% endif %}
+
+          <div class="counter">
+            <button class="decrement icon grey"></button>
+            <span class="count h2-24-auto-regular">{{ product.cart_amount }}</span>
+            <button class="increment icon red"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

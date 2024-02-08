@@ -1,0 +1,126 @@
+
+<div
+  class="card-xl product-card"
+  data-product-id="{{ product.id }}"
+  data-product-new-price="{{ product.new_price }}"
+  data-product-unit-price="{{ product.unit_price }}"
+  data-is-added="{{ product.is_in_cart }}"
+  data-is-bouquet="{{ product.is_bouquet }}"
+  data-region="{{ region.slug }}"
+  itemscope
+  itemtype="http://schema.org/Product"
+>
+  {% if product.discount %}
+    <div class="discount">
+      <p class="p-16-auto-medium white">
+        {{ product.discount }}%
+      </p>
+    </div>
+  {% endif %}
+  <a href="
+    {% if product.url %}
+      {{ product.url }}?currency={{ selected_currency.Name }}
+    {% else %}
+      {% url 'products:product' region.slug product.subcategory_slug product.slug %}?currency={{ selected_currency.Name }}
+    {% endif %}
+  ">
+ 
+    <div class="img-box">
+      <img
+        src="{{ product.image.url }}"
+        alt="{{ product.Name }}"
+        itemprop="image"
+      />
+    </div>
+  
+    <div class="prod-desc" itemprop="description">
+      <div class="prod-title">
+        <h3 class="h2-24-auto-bold" itemprop="name">
+          {{ product.Name }}
+        </h3>
+      </div>
+      <div class="prod-price">
+        <div class="current-price">
+          <p
+            class="h2-24-auto-medium red"
+            itemprop="offers"
+            itemscope
+            itemtype="http://schema.org/Offer"
+          >
+            <span itemprop="price">
+              {% if product.discount %}
+                {{ product.new_price }}
+              {% else %}
+                {{ product.unit_price }}
+              {% endif %}
+            </span>
+            <span
+              itemprop="priceCurrency"
+              content="
+                {{ selected_currency.Name }}
+              "
+            >
+              {{ selected_currency.symbol }}
+            </span>
+          </p>
+        </div>
+        {% if product.discount %}
+          <div class="old-price">
+            <p
+              class="p-16-auto-medium grey"
+              itemprop="offers"
+              itemscope
+              itemtype="http://schema.org/Offer"
+            >
+              <span itemprop="price">{{ product.unit_price }}</span>
+              <span
+                itemprop="priceCurrency"
+                content="
+                  {{ selected_currency.Name }}
+                "
+              >
+                {{ selected_currency.symbol }}
+              </span>
+            </p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+  <div class="card-btn">
+    <Button
+      type="button"
+      class="button-main-text-icon p-16-auto-bold add-to-cart"
+      data-region="{{ region.slug }}"
+    >
+      <span class="icon"></span>
+      До кошика
+    </Button>
+    <Button
+      type="button"
+      class="button-main-text-icon p-16-auto-bold button-added-to-cart"
+      hidden
+    >
+      <span class="icon"></span>
+      У кошику
+    </Button>
+    <a
+      class="p-16-auto-regular red quick-order-link"
+      href="#"
+      data-bs-toggle="modal"
+      data-bs-target="#quickOrderModal"
+      data-product-article="{{ product.sku }}"
+      data-product-image="{{ product.image.url }}"
+      data-product-title="{{ product.Name }}"
+      data-product-discount-price="{{ product.new_price }}"
+      data-product-price="
+        {{ product.unit_price }}
+      "
+      data-product-id="{{ product.id }}"
+      data-product-currency="{{ selected_currency.symbol }}"
+      data-product-discount="{{ product.discount }}"
+    >
+      Швидке замовлення
+    </a>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<!-- COUNTER -->
+<div class="counter">
+  <button class="decrement icon grey"></button>
+  <span class="count p-14-auto-medium">
+    {% if product.cart_amount %}
+      {{ product.cart_amount }}
+    {% else %}
+      1
+    {% endif %}
+  </span>
+  <button class="increment icon red"></button>
+</div>

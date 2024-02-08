@@ -1,0 +1,16 @@
+/* CALL-BACK-MODAL */
+
+.callBackModal .modal-body form {
+  gap: 80px;
+}
+
+.call-back-modal-tel {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+@media only screen and (max-width: 767px) {
+  .callBackModal .iti__country-list {
+    max-width: calc(84vw - 23px);
+  }
+}

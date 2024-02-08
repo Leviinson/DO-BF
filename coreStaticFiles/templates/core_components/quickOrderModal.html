@@ -1,0 +1,79 @@
+<!-- MODAL-QUICK-ORDER -->
+<div class="modal fade quickOrderModal" id="quickOrderModal" tabindex="-1" aria-labelledby="quickOrderModal"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close icon" data-bs-dismiss="modal" aria-label="Close">
+          
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class="h2-24-auto-bold quick-order-modal-title" id="quickOrderModalLabel">
+          Швидке Замовлення
+        </h5>
+        <!-- card-S -->
+        <div class="card-s">
+          <div class="img-box">
+            <img class="quick-order-modal-card-img" src="" alt="name-of-this-flower" />
+          </div>
+          <div class="prod-desc">
+            <div class="card-top">
+              <div class="prod-title">
+                <h3 class="p-16-auto-medium quick-order-modal-card-title">Назва квітки</h3>
+                <p class="p-14-auto-regular quick-order-modal-card-article">Артикул: 2222</p>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <div class="prod-price">
+                <div class="current-price">
+                  <p class="p-14-auto-regular">Ціна:</p>
+                  <p class="p-16-auto-medium red quick-order-modal-card-price"></p>
+                </div>
+                <div class="old-price">
+                  <p class="p-16-auto-medium grey quick-order-modal-card-old-price"></p>
+                </div>
+              </div>
+              <div class="product-count" id="counter">
+                <p class="p-14-auto-medium">1 шт.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODAL-QUICK-ORDER form -->
+        <div class="input-tell-container">
+          <form action="#" method="post" class="quick-order-modal-form">
+            {% csrf_token %}
+            <div class="content">
+              <!-- MODAL-QUICK-ORDER input name -->
+              <input 
+                type="text" 
+                class="p-16-auto-regular darck-gray input-text quick-order-modal-name"
+                name="name"
+                placeholder="Ваше ім’я" 
+              />
+              <!-- MODAL-QUICK-ORDER input tel -->
+              <div class="form-group">
+                <input 
+                  type="tel" 
+                  class="form-control tel quick-order-modal-tel" 
+                  name="leyka_donor_phone"
+                  inputmode="tel" 
+                  value="" 
+                  required 
+                />
+              </div>
+              <div class="quick-order-modal-id" hidden></div>
+            </div>
+            <!-- MODAL-QUICK-ORDER button -->
+            <button class="button-main-text p-16-auto-bold disabled-button quick-order-modal-button" type="submit"
+              value="Отправить" disabled>
+              Відправити
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
