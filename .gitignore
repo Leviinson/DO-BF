@@ -4,3 +4,4 @@ poetry.lock
 static/
 api_cache/
 zoho_token/logger/
+.venv/
