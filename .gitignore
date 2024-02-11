@@ -7,3 +7,5 @@ zoho_token/logger/
 .venv/
 resources/
 venv/
+media/*
+!media/seoblock

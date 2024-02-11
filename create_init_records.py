@@ -28,7 +28,7 @@ def create_records():
     if not SeoBlock.objects.exists():
         SeoBlock.objects.create(
             description="Элитные композиции для мероприятий",
-            button="Выбрать",
+            button="В коробках и корзинках!",
             picture="seoblock/Pasted_image.png",
             link=f"http://{os.getenv('NGINX_DOMEN')}/catalogue/dnipro/bouquets/?currency=USD",
         )
