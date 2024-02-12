@@ -1,1 +1,2 @@
 python-3.10.4
+gunicorn -c gunicorn.conf.py config.wsgi
