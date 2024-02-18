@@ -52,12 +52,14 @@ class AboutUsContextModel(models.Model):
         null=True,
     )
 
+
 class DeliveryDataModel(models.Model):
     main_image = models.ImageField(
         upload_to=user_directory_path,
         verbose_name="Первая большая картинка",
         null=True,
     )
+
 
 class ContactsDataModel(models.Model):
     main_image = models.ImageField(

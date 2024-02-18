@@ -1,4 +1,5 @@
 """Contains rare-used utils."""
+
 import inspect
 import os
 from collections import defaultdict
@@ -8,6 +9,7 @@ from typing import Any, Optional
 import httpx
 from django.conf import settings
 from django.http import HttpRequest
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 from mainpage.models import Contact
@@ -134,9 +136,14 @@ class Formatters:
             subcat_slug = product["subcategory_slug"] = product.pop("subcategory_id.slug")
             product["category_slug"] = subcategory_dict.get(product["subcategory_slug"])
             product_slug = product["slug"]
-            product[
-                "url"
-            ] = f"{settings.DOMEN}/product/{region_slug}/{subcat_slug}/{product_slug}"
+            product["url"] = reverse_lazy(
+                "products:product",
+                kwargs={
+                    "region_slug": region_slug,
+                    "subcategory_slug": subcat_slug,
+                    "product_slug": product_slug,
+                },
+            )
         return products
 
     @staticmethod

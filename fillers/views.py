@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseServerError
 from async_views.generic.base import AsyncTemplateView
 from services.mixins import ApplicationMixin
 
-from .models import AboutUsContextModel, DeliveryDataModel, ContactsDataModel
+from .models import AboutUsContextModel, ContactsDataModel, DeliveryDataModel
 
 
 # Create your views here.
@@ -38,12 +38,13 @@ class AboutUsView(AsyncTemplateView, ApplicationMixin):
         if isinstance(context, HttpResponseServerError):
             return context
         return context
-    
+
     @sync_to_async
     def get_about_us_context(self):
         """To return 'about us' context asynchronously from DB."""
         return list(AboutUsContextModel.objects.all()[:1])
-    
+
+
 class DeliveryView(AsyncTemplateView, ApplicationMixin):
     """Class view for process adding product to customer ordered products."""
 
@@ -72,12 +73,13 @@ class DeliveryView(AsyncTemplateView, ApplicationMixin):
         if isinstance(context, HttpResponseServerError):
             return context
         return context
-    
+
     @sync_to_async
     def get_delivery_context(self):
         """To return 'about us' context asynchronously from DB."""
         return list(DeliveryDataModel.objects.all()[:1])
-    
+
+
 class ContactsView(AsyncTemplateView, ApplicationMixin):
     """Class view for process adding product to customer ordered products."""
 
@@ -106,7 +108,7 @@ class ContactsView(AsyncTemplateView, ApplicationMixin):
         if isinstance(context, HttpResponseServerError):
             return context
         return context
-    
+
     @sync_to_async
     def get_contacts_context(self):
         """To return 'about us' context asynchronously from DB."""

@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import AboutUsContextModel, DeliveryDataModel, ContactsDataModel
+
+from .models import AboutUsContextModel, ContactsDataModel, DeliveryDataModel
 
 # Register your models here.
 admin.site.register(AboutUsContextModel)

@@ -1,7 +1,7 @@
 """Urls list for 'filters' app."""
 from django.urls import path
 
-from .views import AboutUsView, DeliveryView, ContactsView
+from .views import AboutUsView, ContactsView, DeliveryView
 
 app_name = "fillers"
 

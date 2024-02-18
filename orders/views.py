@@ -302,10 +302,10 @@ class CheckoutView(AsyncFormView, ApplicationMixin):
         region_products = await crm_data.get_region_products(
             region["slug"], currency=context["selected_currency"]
         )
-        context["suggested_products"] = (
-            await common_handlers.get_first_three_additional_products(
-                region["slug"], region_products, cart_products
-            )
+        context[
+            "suggested_products"
+        ] = await common_handlers.get_first_three_additional_products(
+            region["slug"], region_products, cart_products
         )
 
     async def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
