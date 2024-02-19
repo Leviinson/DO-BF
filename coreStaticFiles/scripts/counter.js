@@ -19,7 +19,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const price = card.dataset.productNewPrice
     ? +card.dataset.productNewPrice
     : +card.dataset.productUnitPrice;
-    let newTotalPrice = +totalPriceElement.textContent;
+
+    let newTotalPrice;
+    if (totalPriceElement) {
+      newTotalPrice = +totalPriceElement.textContent;
+    }
+
     let count = +countSpan.textContent || 1;
     let totalCount = +totalCountElements[0].innerText;
     let totalOrderCount = +totalOrderElement.innerText;
@@ -39,7 +44,10 @@ document.addEventListener('DOMContentLoaded', function () {
     count = decrementBtn ? count - 1 : count + 1;
     totalCount = decrementBtn ? totalCount - 1 : totalCount + 1;
     totalOrderCount = decrementBtn ? totalOrderCount - 1 : totalOrderCount + 1;
-    newTotalPrice = decrementBtn ? newTotalPrice - price : newTotalPrice + price;
+
+    if (totalPriceElement) {
+      newTotalPrice = decrementBtn ? newTotalPrice - price : newTotalPrice + price;
+    }
 
     const action = decrementBtn ? 'decreace' : 'increace';
     const isBouquet = card.dataset.isBouquet.toLowerCase() === "true";
@@ -74,7 +82,11 @@ document.addEventListener('DOMContentLoaded', function () {
         countSpan.textContent = count;
         totalCountElements[0].innerText = totalCount;
         totalCountElements[1].innerText = totalCount;
-        totalPriceElement.innerText = newTotalPrice.toFixed(2);
+
+        if (totalPriceElement) {
+          totalPriceElement.innerText = newTotalPrice.toFixed(2);
+        }
+        
         setTotalCount2(card, action);
         if(totalOrderElement) {
           totalOrderElement.innerText = totalOrderCount;

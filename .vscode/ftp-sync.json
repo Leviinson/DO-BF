@@ -1,0 +1,28 @@
+{
+    "remotePath": "BonnyFlowers",
+    "host": "levinsxn.ftp.tools",
+    "username": "levinsxn_ftp",
+    "password": "oQasYt*&6s",
+    "port": 21,
+    "secure": false,
+    "protocol": "ftp",
+    "uploadOnSave": false,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "passphrase": null,
+    "agent": null,
+    "allow": [],
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store",
+        "\\.venv"
+    ],
+    "generatedFiles": {
+        "extensionsToInclude": [
+            ""
+        ],
+        "path": ""
+    }
+}
